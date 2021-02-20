@@ -1,14 +1,47 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request
+
+from ..models.User import User
+from ..app import db
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth.route('/login', methods=['POST'])
 def login():
-   return 'Login Route', 200
+  pass
 
 @auth.route('/register', methods=['POST'])
 def register():
-   return 'Register Route', 200
+  try:
+    data = request.get_json()
+  except:
+    response = {
+      'success': False,
+      'message': 'Please provide login data'
+    }
+    return jsonify(response), 400
+
+  try:
+    name = data['name']
+    email = data['email']
+    username = data['username']
+    password = data['password']
+  except KeyError as err:
+    response = {
+      'success': False,
+      'message': f'Please provide {str(err)}'
+    }
+    return jsonify(response), 400
+
+  user = User(name=name, email=email, username=username, password=password)
+  db.session.add(user)
+  db.session.commit()
+
+  response = {
+    'success': True,
+    'message': 'User successfully registered',
+    'data': user,
+  }
+  return jsonify(response), 200
 
 @auth.route('/logout', methods=['GET'])
 def logout():
