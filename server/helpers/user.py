@@ -1,6 +1,9 @@
 from server.app import db
 from server.models.User import User
 
+def find_by_id(id):
+  return User.query.filter_by(id=id).first()
+
 def find_by_email(email):
   return User.query.filter_by(email=email).first()
 

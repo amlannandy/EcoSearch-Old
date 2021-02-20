@@ -1,6 +1,7 @@
 import sys
 sys.path.append('..')
 from flask import Blueprint, jsonify, request
+from flask_jwt_extended import get_jwt_identity, jwt_required, create_access_token
 
 from server.app import db
 from server.models.User import User
@@ -14,7 +15,7 @@ def login():
   if not data:
     response = {
       'success': False,
-      'message': 'Please provide login data',
+      'msg': 'Please provide login data',
     }
     return jsonify(response), 400
 
@@ -24,7 +25,7 @@ def login():
   except KeyError as err:
     response = {
       'success': False,
-      'message': f'Please provide {str(err)}'
+      'msg': f'Please provide {str(err)}'
     }
     return jsonify(response), 400
 
@@ -32,21 +33,26 @@ def login():
   if not user:
     response = {
       'success': False,
-      'message': 'User with this email does not exist',
+      'msg': 'User with this email does not exist',
     }
-    return jsonify(response), 400
+    return jsonify(response), 404
 
   if not user.match_password(password):
     response = {
       'success': False,
-      'message': 'Incorrect Password',
+      'msg': 'Incorrect Password',
     }
     return jsonify(response), 401
 
+  token = create_access_token(identity=email)
+
   response = {
     'success': True,
-    'message': 'User successfully logged in',
-    'data': to_json(user),
+    'msg': 'User successfully logged in',
+    'data': {
+      'user': to_json(user),
+      'token': token,
+    },
   }
   return jsonify(response), 200
   
@@ -57,7 +63,7 @@ def register():
   if not data:
     response = {
       'success': False,
-      'message': 'Please provide registration data',
+      'msg': 'Please provide registration data',
     }
     return jsonify(response), 400
 
@@ -69,7 +75,7 @@ def register():
   except KeyError as err:
     response = {
       'success': False,
-      'message': f'Please provide {str(err)}'
+      'msg': f'Please provide {str(err)}'
     }
     return jsonify(response), 400
 
@@ -77,7 +83,7 @@ def register():
   if existing_user:
     response = {
       'success': False,
-      'message': 'User with this email already exists'
+      'msg': 'User with this email already exists'
     }
     return jsonify(response), 400
 
@@ -85,17 +91,22 @@ def register():
   if existing_user:
     response = {
       'success': False,
-      'message': 'Username already taken'
+      'msg': 'Username already taken'
     }
     return jsonify(response), 400
 
   user = User(name=name, email=email, username=username, password=password)
   user = save(user)
 
+  token = create_access_token(identity=email)
+
   response = {
     'success': True,
-    'message': 'User successfully registered',
-    'data': to_json(user)
+    'msg': 'User successfully registered',
+    'data': {
+      'user': to_json(user),
+      'token': token,
+    }
   }
   return jsonify(response), 200
 
@@ -104,5 +115,22 @@ def logout():
    return 'Logout Route', 200
 
 @auth.route('/current-user', methods=['GET'])
+@jwt_required()
 def get_current_user():
-   return 'Get Current User Route', 200
+
+  email = get_jwt_identity()
+
+  user = find_by_email(email)
+  if not user:
+    response = {
+      'success': False,
+      'msg': 'User does not exist',
+    }
+    return jsonify(response), 404
+
+  response = {
+    'success': True,
+    'data': to_json(user),
+  }
+  
+  return jsonify(response), 200
