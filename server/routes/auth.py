@@ -1,22 +1,23 @@
+import sys
+sys.path.append('..')
 from flask import Blueprint, jsonify, request
 
-from ..models.User import User
-from ..app import db
+from server.models.User import User
+from server.app import db
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth.route('/login', methods=['POST'])
 def login():
-  pass
+  return 'Login route', 200
 
 @auth.route('/register', methods=['POST'])
 def register():
-  try:
-    data = request.get_json()
-  except:
+  data = request.get_json()
+  if not data:
     response = {
       'success': False,
-      'message': 'Please provide login data'
+      'message': 'Please provide login data',
     }
     return jsonify(response), 400
 
