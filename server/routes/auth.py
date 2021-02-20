@@ -4,7 +4,7 @@ from flask import Blueprint, jsonify, request
 
 from server.app import db
 from server.models.User import User
-from server.helpers.user import find_by_email, find_by_username
+from server.helpers.user import find_by_email, find_by_username, to_json, save
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -36,7 +36,7 @@ def login():
     }
     return jsonify(response), 400
 
-  if password != user.password:
+  if not user.match_password(password):
     response = {
       'success': False,
       'message': 'Incorrect Password',
@@ -46,6 +46,7 @@ def login():
   response = {
     'success': True,
     'message': 'User successfully logged in',
+    'data': to_json(user),
   }
   return jsonify(response), 200
   
@@ -89,12 +90,12 @@ def register():
     return jsonify(response), 400
 
   user = User(name=name, email=email, username=username, password=password)
-  db.session.add(user)
-  db.session.commit()
+  user = save(user)
 
   response = {
     'success': True,
     'message': 'User successfully registered',
+    'data': to_json(user)
   }
   return jsonify(response), 200
 
