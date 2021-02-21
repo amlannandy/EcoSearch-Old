@@ -1,11 +1,16 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 
 db = SQLAlchemy()
-  
+
+# Set up image directory
+basedir = os.path.abspath(os.path.dirname(__file__))
+imagesdir = os.path.join(os.path.dirname(basedir),'uploads')
+
 # Init flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder=imagesdir)
 
 from server.routes.auth import auth as AuthBlueprint
 from server.routes.records import records as RecordsBlueprint
