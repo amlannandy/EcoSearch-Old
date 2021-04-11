@@ -1,13 +1,11 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
-from server.app import db, auto
 from server.helpers.user import find_by_email
 
 records = Blueprint('records', __name__, url_prefix='/records')
 
 @records.route('/')
-@auto.doc('records')
 @jwt_required()
 def get_records():
    
@@ -24,6 +22,5 @@ def get_records():
    return f'Get user {id}', 200
 
 @records.route('/<id>')
-@auto.doc('records')
 def get_record(id):
    pass

@@ -3,18 +3,13 @@ sys.path.append('..')
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required, create_access_token
 
-from server.app import db, auto
 from server.models.User import User
 from server.helpers.user import find_by_email, find_by_username, to_json, save
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth.route('/login', methods=['POST'])
-@auto.doc('auth')
 def login():
-  '''
-  Login with credentials
-  '''
   data = request.get_json()
   if not data:
     response = {
@@ -62,11 +57,7 @@ def login():
   
 
 @auth.route('/register', methods=['POST'])
-@auto.doc('auth')
 def register():
-  '''
-  Register a new user
-  '''
   data = request.get_json()
   if not data:
     response = {
@@ -111,23 +102,16 @@ def register():
   response = {
     'success': True,
     'msg': 'User successfully registered',
-    'data': {
-      'user': to_json(user),
-      'token': token,
-    }
+    'data': token,
   }
   return jsonify(response), 200
 
 @auth.route('/current-user', methods=['GET'])
-@auto.doc('auth')
 @jwt_required()
 def get_current_user():
-  '''
-  Get the current logged in user
-  '''
   email = get_jwt_identity()
-
   user = find_by_email(email)
+  
   if not user:
     response = {
       'success': False,
