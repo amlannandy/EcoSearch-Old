@@ -21,6 +21,5 @@ def to_json(user):
     'name': user.name,
     'username': user.username,
     'email': user.email,
-    'password': user.password,
     'created_at': user.created_at,
   }
