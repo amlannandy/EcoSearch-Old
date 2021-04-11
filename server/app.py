@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 
@@ -8,11 +9,14 @@ db = SQLAlchemy()
 # Init flask app
 app = Flask(__name__)
 
+# Load environment variables
+load_dotenv()
+
 from server.routes.auth import auth as AuthBlueprint
 from server.routes.records import records as RecordsBlueprint
 
 # Setup jwt
-app.config["JWT_SECRET_KEY"] = "thisisasecret"
+app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 jwt = JWTManager(app)
 
 # Setup and init db
