@@ -1,26 +1,15 @@
-from flask import Blueprint, jsonify
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask import Blueprint
 
-from server.helpers.user import find_by_email
+from server.controllers.records import records_controller
 
-records = Blueprint('records', __name__, url_prefix='/records')
+records = Blueprint('records', __name__, url_prefix='/api/v1/records')
 
-@records.route('/')
-@jwt_required()
-def get_records():
-   
-   email = get_jwt_identity()
-   user = find_by_email(email)
+records.add_url_rule('/', 
+   view_func=records_controller['user_records'], 
+   methods=['GET'],
+)
 
-   if not user:
-      response = {
-         'succes': False,
-         'msg': 'User does not exist'
-      }
-      return jsonify(response), 404
-
-   return f'Get user {id}', 200
-
-@records.route('/<id>')
-def get_record(id):
-   pass
+records.add_url_rule('/<int:id>', 
+   view_func=records_controller['record'], 
+   methods=['GET', 'PUT', 'DELETE'],
+)

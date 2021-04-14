@@ -2,7 +2,7 @@ from flask import Blueprint
 
 from server.controllers.auth import auth_controller
 
-auth = Blueprint('auth', __name__, url_prefix='/auth')
+auth = Blueprint('auth', __name__, url_prefix='/api/v1/auth')
 
 auth.add_url_rule('/login', view_func=auth_controller['login'], methods=['POST'])
 
