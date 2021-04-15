@@ -6,18 +6,24 @@ from server.helpers.user import login_only
 from server.helpers.record import (
   find_by_id,
   save_record, 
-  upload_image, 
+  upload_image,
+  find_all_user_records,
   save_image_to_record,
   find_record_by_email_and_title,
+  update_description,
+  delete_by_id,
 )
 
 class UserRecordsView(MethodView):
   # Get all records of a user
   @login_only
   def get(self):
+    user_email = request.args['user']['email']
+    records_data = find_all_user_records(user_email)
+    records = list(map(lambda rec : rec.to_json(), records_data))
     response = {
       'success': True,
-      'msg': 'User record',
+      'data': records,
     }
     return make_response(jsonify(response)), 200
 
@@ -62,26 +68,91 @@ class UserRecordsView(MethodView):
 
 class RecordView(MethodView):
   # Get a record by id
+  @login_only
   def get(self, id):
+    record = find_by_id(id)
+    if not record:
+      response = {
+        'success': False,
+        'msg': 'Record does not exist',
+      }
+      return make_response(jsonify(response)), 404
+
+    user_email = request.args['user']['email']
+    if record.user_email != user_email:
+      response = {
+        'success': False,
+        'msg': 'Not authorized to view this record'
+      }
+      return make_response(jsonify(response)), 401
+
     response = {
       'success': True,
-      'msg': f'Get Record {id}',
+      'data': record.to_json(),
     }
     return make_response(jsonify(response)), 200
 
   # Update a record by id
+  @login_only
   def put(self, id):
+    record = find_by_id(id)
+    if not record:
+      response = {
+        'success': False,
+        'msg': 'Record does not exist',
+      }
+      return make_response(jsonify(response)), 404
+
+    user_email = request.args['user']['email']
+    if record.user_email != user_email:
+      response = {
+        'success': False,
+        'msg': 'Not authorized to update this record'
+      }
+      return make_response(jsonify(response)), 401
+
+    try:
+      data = request.get_json()
+      description = data['description']
+      pass
+    except:
+      response = {
+        'success': False,
+        'msg': 'Please provide a description'
+      }
+      return make_response(jsonify(response)), 400
+
+    record = update_description(record.id, description)
+
     response = {
       'success': True,
-      'msg': f'Update Record {id}',
+      'data': record.to_json(),
     }
     return make_response(jsonify(response)), 200
 
   # Delete a record by id
+  @login_only
   def delete(self, id):
+    record = find_by_id(id)
+    if not record:
+      response = {
+        'success': False,
+        'msg': 'Record does not exist',
+      }
+      return make_response(jsonify(response)), 404
+
+    user_email = request.args['user']['email']
+    if record.user_email != user_email:
+      response = {
+        'success': False,
+        'msg': 'Not authorized to update this record'
+      }
+      return make_response(jsonify(response)), 401
+
+    delete_by_id(record.id)
     response = {
       'success': True,
-      'msg': f'Delete Record {id}',
+      'msg': 'Record deleted successfully',
     }
     return make_response(jsonify(response)), 200
 

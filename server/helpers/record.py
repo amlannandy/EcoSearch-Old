@@ -6,6 +6,9 @@ from server.models.Record import Record
 def find_by_id(id):
   return Record.query.filter_by(id=id).first()
 
+def find_all_user_records(email):
+  return Record.query.filter_by(user_email=email)
+
 def save_record(title, description, email):
   record = Record(title=title, description=description, user_email=email)
   db.session.add(record)
@@ -26,3 +29,13 @@ def save_image_to_record(id, url):
 
 def find_record_by_email_and_title(email, title):
   return Record.query.filter_by(user_email=email, title=title).first()
+
+def update_description(id, description):
+  record = Record.query.filter_by(id=id).first()
+  record.description = description
+  db.session.commit()
+  return record
+
+def delete_by_id(id):
+  Record.query.filter_by(id=id).delete()
+  db.session.commit()
