@@ -3,7 +3,13 @@ from flask.views import MethodView
 from flask import request, jsonify, make_response
 
 from server.helpers.user import login_only
-from server.helpers.record import save_record, upload_image, save_image_to_record
+from server.helpers.record import (
+  find_by_id,
+  save_record, 
+  upload_image, 
+  save_image_to_record,
+  find_record_by_email_and_title,
+)
 
 class UserRecordsView(MethodView):
   # Get all records of a user
@@ -37,6 +43,14 @@ class UserRecordsView(MethodView):
       return make_response(jsonify(response)), 400
 
     email = request.args['user']['email']
+
+    record = find_record_by_email_and_title(email, title)
+    if record:
+      response = {
+        'success': False,
+        'msg': 'Record with this title already exists',
+      }
+      return make_response(jsonify(response)), 409
 
     record = save_record(title, description, email)
     response = {
@@ -75,6 +89,21 @@ class ImageUploadView(MethodView):
   # Upload a image to cloud storage
   @login_only
   def post(self, id):
+    record = find_by_id(id)
+    if not record:
+      response = {
+        'success': False,
+        'msg': 'Record does not exist',
+      }
+      return make_response(jsonify(response)), 404
+
+    if record.image:
+      response = {
+        'success': False,
+        'msg': 'Record already has an image',
+      }
+      return make_response(jsonify(response)), 409
+
     image = request.files.get('image')
     if not image:
       response = {
