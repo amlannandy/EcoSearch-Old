@@ -1,9 +1,9 @@
 from flask.views import MethodView
 from flask import request, jsonify
-from flask_jwt_extended import get_jwt_identity, jwt_required, create_access_token
+from flask_jwt_extended import create_access_token
 
 from server.models.User import User
-from server.helpers.user import find_by_email, find_by_username, to_json, save
+from server.helpers.user import find_by_email, find_by_username, login_only, save
 
 class LoginView(MethodView):
   def post(self):
@@ -101,21 +101,13 @@ class RegisterView(MethodView):
     
 class CurrentUserView(MethodView):
   
-  @jwt_required()
+  @login_only
   def get(self):
-    email = get_jwt_identity()
-    user = find_by_email(email)
-    
-    if not user:
-      response = {
-        'success': False,
-        'msg': 'User does not exist',
-      }
-      return jsonify(response), 404
+    user = request.args['user']
 
     response = {
       'success': True,
-      'data': to_json(user),
+      'data': user,
     }
     
     return jsonify(response), 200
