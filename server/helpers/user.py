@@ -1,3 +1,7 @@
+from functools import wraps
+from flask import request, jsonify
+from flask_jwt_extended import decode_token
+
 from server.app import db
 from server.models.User import User
 
@@ -23,3 +27,37 @@ def to_json(user):
     'email': user.email,
     'created_at': user.created_at,
   }
+
+# Use this decorator on protected routes
+def login_only(fun):
+  @wraps(fun)
+  def wrap(*args, **kwargs):
+     
+    authorization_header = request.headers.get('Authorization')
+    if not authorization_header:
+      response = {
+        'success': False,
+        'msg': 'Please log in'
+      }
+      return jsonify(response), 401
+
+    token = authorization_header.split()[1]
+    if not token:
+      response = {
+        'success': False,
+        'msg': 'Please log in'
+      }
+      return jsonify(response), 401
+
+    email = decode_token(token)['sub']
+    user = User.query.filter_by(email=email).first()
+    if not user:
+      response = {
+        'success': False,
+        'msg': 'Invalid token'
+      }
+      return jsonify(response), 401
+
+    # Else continue
+    return fun(*args, **kwargs)
+  return wrap

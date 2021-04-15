@@ -1,9 +1,10 @@
 from flask.views import MethodView
 from flask import request, jsonify, make_response
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from server.helpers.user import login_only
 
 class UserRecordsView(MethodView):
   # Get all records of a user
+  @login_only
   def get(self):
     response = {
       'success': True,
