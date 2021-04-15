@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import request, jsonify
 from flask_jwt_extended import decode_token
+from werkzeug.datastructures import ImmutableMultiDict
 
 from server.app import db
 from server.models.User import User
@@ -57,6 +58,10 @@ def login_only(fun):
         'msg': 'Invalid token'
       }
       return jsonify(response), 401
+
+    http_args = request.args.to_dict()
+    http_args['user'] = to_json(user)
+    request.args = ImmutableMultiDict(http_args )
 
     # Else continue
     return fun(*args, **kwargs)
