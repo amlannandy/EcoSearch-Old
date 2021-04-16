@@ -22,3 +22,8 @@ auth.add_url_rule('/update-password',
   view_func=auth_controller['update_password'], 
   methods=['PUT'],
 )
+
+auth.add_url_rule('/delete-account', 
+  view_func=auth_controller['delete_account'], 
+  methods=['DELETE'],
+)

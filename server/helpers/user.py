@@ -33,6 +33,10 @@ def update_password(id, password):
   db.session.commit()
   return user
 
+def delete_by_id(id):
+  User.query.filter_by(id=id).delete()
+  db.session.commit()
+
 def to_json(user):
   return {
     'id': user.id,

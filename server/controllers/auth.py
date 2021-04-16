@@ -12,6 +12,7 @@ from server.helpers.user import (
   save,
   update_user,
   update_password,
+  delete_by_id,
 )
 
 class LoginView(MethodView):
@@ -198,6 +199,39 @@ class UpdatePasswordView(MethodView):
     }
     return make_response(jsonify(response)), 200
 
+class DeleteAccountView(MethodView):
+  # Delete own account
+  @login_only
+  def delete(self):
+    try:
+      data = request.get_json()
+      password = data['password']
+    except Exception:
+      response = {
+        'success': False,
+        'msg': 'Please enter your password',
+      }
+      return make_response(jsonify(response)), 400
+    
+    user = find_by_id(request.args['user']['id'])
+    if not user.match_password(password):
+      response = {
+        'success': False,
+        'msg': 'Incorrect Password',
+      }
+      return make_response(jsonify(response)), 401
+
+    delete_by_id(user.id)
+
+    response = {
+      'success': True,
+      'msg': 'Account deleted successfully',
+    }
+    return make_response(jsonify(response)), 200
+
+    
+
+
 
 auth_controller = {
   'login': LoginView.as_view('login'),
@@ -205,4 +239,5 @@ auth_controller = {
   'get_current_user': CurrentUserView.as_view('get_current_user'),
   'update_info': UpdateInfoView.as_view('update_info'),
   'update_password': UpdatePasswordView.as_view('update_password'),
+  'delete_account': DeleteAccountView.as_view('delete_account'),
 }
