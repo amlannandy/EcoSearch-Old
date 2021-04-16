@@ -20,6 +20,19 @@ def save(user):
   db.session.commit()
   return User.query.filter_by(email=user.email).first()
 
+def update_user(id, name, username):
+  user = User.query.filter_by(id=id).first()
+  user.name = name
+  user.username = username
+  db.session.commit()
+  return user
+
+def update_password(id, password):
+  user = User.query.filter_by(id=id).first()
+  user.password = User.generate_password_hash(password)
+  db.session.commit()
+  return user
+
 def to_json(user):
   return {
     'id': user.id,

@@ -8,4 +8,17 @@ auth.add_url_rule('/login', view_func=auth_controller['login'], methods=['POST']
 
 auth.add_url_rule('/register', view_func=auth_controller['register'], methods=['POST'])
 
-auth.add_url_rule('/get-current-user', view_func=auth_controller['get_current_user'], methods=['GET'])
+auth.add_url_rule('/get-current-user',
+  view_func=auth_controller['get_current_user'],
+  methods=['GET'],
+)
+
+auth.add_url_rule('/update-info', 
+  view_func=auth_controller['update_info'], 
+  methods=['PUT'],
+)
+
+auth.add_url_rule('/update-password', 
+  view_func=auth_controller['update_password'], 
+  methods=['PUT'],
+)
