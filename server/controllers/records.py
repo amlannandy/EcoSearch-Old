@@ -1,4 +1,3 @@
-from os import name
 from flask.views import MethodView
 from flask import request, jsonify, make_response
 
