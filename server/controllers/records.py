@@ -19,6 +19,18 @@ class UserRecordsView(MethodView):
   def get(self):
     user_email = request.args['user']['email']
     records_data = find_all_user_records(user_email)
+
+    type = request.args.get('type')
+    if type not in ['animal', 'bird', 'insect', 'plant']:
+      response = {
+        'success': False,
+        'msg': 'Invalid record type',
+      }
+      return make_response(jsonify(response)), 400    
+
+    if type:
+      records_data = list(filter(lambda rec : rec.type == type, records_data))
+
     records = list(map(lambda rec : rec.to_json(), records_data))
     response = {
       'success': True,
@@ -40,10 +52,18 @@ class UserRecordsView(MethodView):
     try:
       title = str(data['title'])
       description = str(data['description'])
+      type = str(data['type'])
     except KeyError as err:
       response = {
         'success': False,
         'msg': f'Please provide a {str(err)}'
+      }
+      return make_response(jsonify(response)), 400
+
+    if type not in ['animal', 'bird', 'insect', 'plant']:
+      response = {
+        'success': False,
+        'msg': 'Invalid record type',
       }
       return make_response(jsonify(response)), 400
 
@@ -57,7 +77,7 @@ class UserRecordsView(MethodView):
       }
       return make_response(jsonify(response)), 409
 
-    record = save_record(title, description, email)
+    record = save_record(title, description, email, type)
     response = {
       'success': True,
       'data': record.to_json(),

@@ -78,7 +78,7 @@ def login_only(fun):
 
     http_args = request.args.to_dict()
     http_args['user'] = to_json(user)
-    request.args = ImmutableMultiDict(http_args )
+    request.args = ImmutableMultiDict(http_args)
 
     # Else continue
     return fun(*args, **kwargs)
