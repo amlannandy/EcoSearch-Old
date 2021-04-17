@@ -21,7 +21,7 @@ class UserRecordsView(MethodView):
     records_data = find_all_user_records(user_email)
 
     type = request.args.get('type')
-    if type not in ['animal', 'bird', 'insect', 'plant']:
+    if type and type not in ['animal', 'bird', 'insect', 'plant']:
       response = {
         'success': False,
         'msg': 'Invalid record type',
