@@ -1,8 +1,11 @@
+from flask.helpers import flash
 from flask.views import MethodView
-from flask import request, jsonify, make_response
-from flask_jwt_extended import create_access_token
+from flask import request, jsonify, make_response, render_template
+from flask_jwt_extended import create_access_token, decode_token
 
 from server.models.User import User
+from server.helpers.form import ResetPasswordForm
+from server.helpers.email import send_welcome_email
 from server.helpers.user import (
   to_json,
   find_by_email,
@@ -229,9 +232,72 @@ class DeleteAccountView(MethodView):
     }
     return make_response(jsonify(response)), 200
 
-    
+class ForgotPasswordView(MethodView):
+  # Send reset password mail to an email
+  def post(self):
+    try:
+      data = request.get_json()
+      email = data['email']
+    except Exception:
+      response = {
+        'success': False,
+        'msg': 'Please provide an email',
+      }
+      return make_response(jsonify(response)), 400
 
+    user = find_by_email(email)
+    if not user:
+      response = {
+        'success': False,
+        'msg': 'User with this email does not exist',
+      }
+      return make_response(jsonify(response)), 404
 
+    try:
+      token = create_access_token(user.email)
+      send_welcome_email(user.name, user.email, token)
+    except Exception as err:
+      print(err)
+      response = {
+        'success': False,
+        'msg': 'Error sending email'
+      }
+      return make_response(jsonify(response)), 500
+
+    response = {
+      'success': True,
+      'msg': 'Password reset mail send successfully'
+    }
+    return make_response(jsonify(response)), 200
+
+class ResetPasswordView(MethodView):
+  # View the reset password page
+  def get(self, token):
+    form = ResetPasswordForm(request.form)
+    return render_template('reset_password_page.html', form=form)
+
+  def post(self, token):
+    form = ResetPasswordForm(request.form)
+    password1 = request.form['password1']
+    password2 = request.form['password2']
+
+    if password1 != password2:
+      flash('Passwords don\'t match', 'danger')
+    else:
+      if len(password1) < 6:
+        flash('Password must be atleast 6 characters long', 'danger')
+      else:
+        try:
+          email = decode_token(token)['sub']
+          user = find_by_email(email)
+          if not user:
+            flash('User does not exit', 'danger')
+          else:
+            update_password(user.id, password1)
+            flash('Password successfully reset!', 'success')
+        except:
+          flash('Internal Server Error', 'danger')
+    return render_template('reset_password_page.html', form=form)
 
 auth_controller = {
   'login': LoginView.as_view('login'),
@@ -240,4 +306,6 @@ auth_controller = {
   'update_info': UpdateInfoView.as_view('update_info'),
   'update_password': UpdatePasswordView.as_view('update_password'),
   'delete_account': DeleteAccountView.as_view('delete_account'),
+  'forgot_password': ForgotPasswordView.as_view('forgot_password'),
+  'reset_password': ResetPasswordView.as_view('reset_password'),
 }

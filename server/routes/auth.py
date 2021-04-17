@@ -27,3 +27,13 @@ auth.add_url_rule('/delete-account',
   view_func=auth_controller['delete_account'], 
   methods=['DELETE'],
 )
+
+auth.add_url_rule('/forgot-password', 
+  view_func=auth_controller['forgot_password'], 
+  methods=['POST'],
+)
+
+auth.add_url_rule('/reset-password/<token>', 
+  view_func=auth_controller['reset_password'], 
+  methods=['POST', 'GET'],
+)
