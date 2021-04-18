@@ -9,8 +9,8 @@ def find_by_id(id):
 def find_all_user_records(email):
   return Record.query.filter_by(user_email=email)
 
-def save_record(title, description, email, type):
-  record = Record(title=title, description=description, user_email=email, type=type)
+def save_record(title, description, email, type, location):
+  record = Record(title=title, description=description, user_email=email, type=type, location=location)
   db.session.add(record)
   db.session.commit()
   record = Record.query.filter_by(title=title).first()

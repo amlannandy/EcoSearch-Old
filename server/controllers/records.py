@@ -1,3 +1,4 @@
+from server.models.Location import Location
 from flask.views import MethodView
 from flask import request, jsonify, make_response
 
@@ -53,6 +54,8 @@ class UserRecordsView(MethodView):
       title = str(data['title'])
       description = str(data['description'])
       type = str(data['type'])
+      latitude = str(data['latitude'])
+      longitude = str(data['longitude'])
     except KeyError as err:
       response = {
         'success': False,
@@ -77,7 +80,8 @@ class UserRecordsView(MethodView):
       }
       return make_response(jsonify(response)), 409
 
-    record = save_record(title, description, email, type)
+    location = Location(latitude=latitude, longitude=longitude, address='Address')
+    record = save_record(title, description, email, type, location)
     response = {
       'success': True,
       'data': record.to_json(),
