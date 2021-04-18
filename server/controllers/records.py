@@ -28,10 +28,16 @@ class UserRecordsView(MethodView):
         'success': False,
         'msg': 'Invalid record type',
       }
-      return make_response(jsonify(response)), 400    
+      return make_response(jsonify(response)), 400
 
+    # Filter if type is provided
     if type:
       records_data = list(filter(lambda rec : rec.type == type, records_data))
+
+    # Filter if label is provided
+    label = request.args.get('label')
+    if label:
+      records_data = list(filter(lambda rec : rec.label == label, records_data))
 
     records = list(map(lambda rec : rec.to_json(), records_data))
     response = {
