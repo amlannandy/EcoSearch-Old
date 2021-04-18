@@ -7,6 +7,5 @@ def get_address_from_location(lat, long):
   res = requests.get(URL)
   data = res.json()
   locations = data['results'][0]['components']
-  print(locations)
   address = f'{locations["county"]}, {locations["state_district"]}, {locations["state"]}, {locations["country"]}'
   return address
