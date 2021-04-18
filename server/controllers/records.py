@@ -3,6 +3,7 @@ from flask.views import MethodView
 from flask import request, jsonify, make_response
 
 from server.helpers.user import login_only
+from server.helpers.geocoder import get_address_from_location
 from server.helpers.record import (
   find_by_id,
   save_record, 
@@ -80,7 +81,8 @@ class UserRecordsView(MethodView):
       }
       return make_response(jsonify(response)), 409
 
-    location = Location(latitude=latitude, longitude=longitude, address='Address')
+    address = get_address_from_location(latitude, longitude)
+    location = Location(latitude=latitude, longitude=longitude, address=address)
     record = save_record(title, description, email, type, location)
     response = {
       'success': True,
