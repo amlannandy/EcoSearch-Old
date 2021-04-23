@@ -1,3 +1,13 @@
 <resources>
+    <!--  General  -->
     <string name="app_name">EcoSearch</string>
+
+    <!--  Login  -->
+    <string name="login">Login</string>
+    <string name="login_email_hint">Enter your email</string>
+    <string name="login_password_hint">Enter your password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register">Register</string>
+    <dimen name="lbl_text_view_textSize">16sp</dimen>
 </resources>

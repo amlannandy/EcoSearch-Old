@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RegistrationActivity" />
-        <activity android:name=".activities.LoginActivity" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
     </application>
 
 </manifest>
