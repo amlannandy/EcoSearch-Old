@@ -3,7 +3,6 @@ package com.aknindustries.ecosearch.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToRegister() {
-        intent = Intent(this@LoginActivity, RegistrationActivity::class.java)
+        intent = Intent(this@LoginActivity, RegisterActivity::class.java)
         startActivity(intent)
     }
 }
