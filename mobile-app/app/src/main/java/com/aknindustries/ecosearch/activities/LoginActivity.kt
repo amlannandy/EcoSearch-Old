@@ -16,10 +16,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.loginGoToRegister.setOnClickListener { goToRegister() }
+        binding.tvForgotPassword.setOnClickListener { goToForgotPassword() }
     }
 
     private fun goToRegister() {
         intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToForgotPassword() {
+        intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 }
