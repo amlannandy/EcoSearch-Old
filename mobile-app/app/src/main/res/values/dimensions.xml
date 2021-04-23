@@ -7,6 +7,12 @@
     <dimen name="btn_padding">8dp</dimen>
     <dimen name="btn_background_radius">15sp</dimen>
 
+    <!--  Progress Indicator  -->
+    <dimen name="progress_dialog_content_padding">10dp</dimen>
+    <dimen name="progress_bar_size">50dp</dimen>
+    <dimen name="progress_text_marginStart">16dp</dimen>
+    <dimen name="progress_text_size">16sp</dimen>
+
     <!-- Splash Activity-->
     <dimen name="splash_title_text_size">35sp</dimen>
     <dimen name="splash_logo_height">200dp</dimen>

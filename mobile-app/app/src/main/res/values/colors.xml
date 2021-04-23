@@ -10,4 +10,7 @@
     <color name="colorDarkGrey">#878787</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="snack_bar_success">#17b978</color>
+    <color name="snack_bar_error">#ff304f</color>
 </resources>

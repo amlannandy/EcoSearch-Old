@@ -1,6 +1,8 @@
 <resources>
     <!--  General  -->
     <string name="app_name">EcoSearch</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="please_click_back_again_to_exit">Please click back again to exit</string>
 
     <!--  Login  -->
     <string name="login">Login</string>

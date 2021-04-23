@@ -1,10 +1,9 @@
 package com.aknindustries.ecosearch.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aknindustries.ecosearch.databinding.ActivityForgotPasswordBinding
 
-class ForgotPasswordActivity : AppCompatActivity() {
+class ForgotPasswordActivity : BaseActivity() {
 
     private lateinit var binding: ActivityForgotPasswordBinding
 
