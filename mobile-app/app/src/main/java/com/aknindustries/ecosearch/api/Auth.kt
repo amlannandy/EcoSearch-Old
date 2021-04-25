@@ -5,7 +5,6 @@ import android.util.Log
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.VolleySingleton
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 
