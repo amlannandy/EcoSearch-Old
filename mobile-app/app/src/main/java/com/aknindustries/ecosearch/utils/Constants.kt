@@ -12,6 +12,7 @@ object Constants {
     const val EMAIL = "email"
     const val PASSWORD = "password"
 
+    const val APP_PREFERENCES = "eco_search"
     const val ECO_SEARCH_TOKEN = "eco_search_token"
 
     fun getApiErrorMessage(error: VolleyError) : String {

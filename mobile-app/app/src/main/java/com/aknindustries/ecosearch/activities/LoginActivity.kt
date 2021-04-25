@@ -47,7 +47,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val email = binding.loginEmailEt.text.toString().trim()
         val password = binding.loginPasswordEt.text.toString().trim()
         if (validateLogin(email, password)) {
-            Auth(applicationContext).login(email, password)
+            showProgressDialog()
+            Auth(applicationContext).login(this, email, password)
         }
     }
 
@@ -67,6 +68,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
             else -> true
         }
+    }
+
+    fun loginSuccess() {
+        hideProgressDialog()
+        intent = Intent(this@LoginActivity, SplashActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun loginFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
 }
