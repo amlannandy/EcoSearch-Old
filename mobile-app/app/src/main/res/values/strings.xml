@@ -16,6 +16,9 @@
     <string name="create_an_account">Create an Account</string>
     <string name="hint_last_name">Last name</string>
     <string name="hint_first_name">First name</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Condition </u></string>
     <string name="btn_lbl_register">Register</string>
@@ -23,6 +26,7 @@
     <string name="err_msg_enter_first_name">Please enter first name.</string>
     <string name="err_msg_enter_last_name">Please enter last name.</string>
     <string name="err_msg_enter_email">Please enter email.</string>
+    <string name="err_msg_enter_username">Please enter username.</string>
     <string name="err_msg_enter_valid_email">Please enter a valid email</string>
     <string name="err_msg_enter_password">Please enter password.</string>
     <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
