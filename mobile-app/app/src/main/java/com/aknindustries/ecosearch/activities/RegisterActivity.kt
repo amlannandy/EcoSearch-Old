@@ -19,13 +19,13 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
         binding.goToLogin.setOnClickListener(this)
+        binding.btnRegister.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
         setSupportActionBar(binding.toolbarRegisterActivity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.toolbarRegisterActivity.setNavigationOnClickListener(this)
-        binding.btnRegister.setOnClickListener(this)
+        binding.toolbarRegisterActivity.setNavigationOnClickListener{ onBackPressed() }
     }
 
     override fun onClick(v: View?) {
