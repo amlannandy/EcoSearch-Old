@@ -5,6 +5,7 @@ import android.util.Log
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.VolleySingleton
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 
@@ -22,10 +23,12 @@ class Auth(context: Context) {
             "$baseUrl/login",
             JSONObject(loginPostData as Map<*, *>),
             { res ->
-                Log.d("Response", res.toString())
+                val token = res.getString("data")
+                Log.d("Response", token)
             },
-            { err ->
-                Log.d("Error", err.toString())
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                Log.d("Error", errorMessage)
             }
         )
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
