@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.api.Auth
 import com.aknindustries.ecosearch.databinding.ActivityForgotPasswordBinding
 
 class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
@@ -37,8 +38,19 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     private fun sendPasswordResetMail() {
         val email = binding.forgotPasswordEtEmail.text.toString().trim()
         if (validateEmail(email)) {
-            showSnackBar("Email Valid", false)
+            showProgressDialog()
+            Auth(applicationContext).sendPasswordResetEmail(this, email)
         }
+    }
+
+    fun passwordResetSuccess(successMessage: String) {
+        hideProgressDialog()
+        showSnackBar(successMessage, false)
+    }
+
+    fun passwordResetFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
     private fun validateEmail(email: String): Boolean {
