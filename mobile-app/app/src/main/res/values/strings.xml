@@ -20,7 +20,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
-    <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Condition </u></string>
+    <string name="i_agree_to_the_terms_and_condition">I Agree To The <u> Terms &amp; Conditions</u></string>
     <string name="btn_lbl_register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="err_msg_enter_first_name">Please enter first name</string>

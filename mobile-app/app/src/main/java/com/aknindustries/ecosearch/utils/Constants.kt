@@ -2,8 +2,13 @@ package com.aknindustries.ecosearch.utils
 
 object Constants {
 
-    val BASE_URL = "http://localhost:5000"
-    val API_VERSION = "/api/v1"
-    val ECO_SEARCH_TOKEN = "eco_search_token"
+    const val BASE_URL = "http://192.168.0.103:5000"
+    const val API_VERSION = "/api/v1"
+    const val AUTH_CONTROLLER = "/auth"
+
+    const val EMAIL = "email"
+    const val PASSWORD = "password"
+
+    const val ECO_SEARCH_TOKEN = "eco_search_token"
 
 }

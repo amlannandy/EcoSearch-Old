@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.api.Auth
 import com.aknindustries.ecosearch.databinding.ActivityLoginBinding
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -46,7 +47,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val email = binding.loginEmailEt.text.toString().trim()
         val password = binding.loginPasswordEt.text.toString().trim()
         if (validateLogin(email, password)) {
-            showSnackBar("Valid Login", false)
+            Auth(applicationContext).login(email, password)
         }
     }
 
