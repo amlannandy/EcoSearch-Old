@@ -1,11 +1,14 @@
 package com.aknindustries.ecosearch.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.api.Auth
 import com.aknindustries.ecosearch.databinding.ActivityRegisterBinding
+import com.aknindustries.ecosearch.utils.Constants
 
 class RegisterActivity : BaseActivity(), View.OnClickListener {
 
@@ -39,8 +42,35 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
     private fun registrationHandler() {
         if (validateRegistration()) {
-            showSnackBar("Registration Valid", false)
+            val firstName = binding.registerEtFirstName.text.toString().trim()
+            val lastName = binding.registerEtLastName.text.toString().trim()
+            val name = "$firstName $lastName"
+            val email = binding.registerEtEmail.text.toString().trim()
+            val username = binding.registerEtUsername.text.toString().trim()
+            val password = binding.registerEtPassword.text.toString().trim()
+
+            // Create HashMap
+            val registrationData = HashMap<String, String>()
+            registrationData[Constants.NAME] = name
+            registrationData[Constants.EMAIL] = email
+            registrationData[Constants.USERNAME] = username
+            registrationData[Constants.PASSWORD] = password
+
+            showProgressDialog()
+            Auth(applicationContext).register(this, registrationData)
         }
+    }
+
+    fun registrationSuccess() {
+        hideProgressDialog()
+        intent = Intent(this@RegisterActivity, SplashActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun registrationFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
     private fun validateRegistration() : Boolean {

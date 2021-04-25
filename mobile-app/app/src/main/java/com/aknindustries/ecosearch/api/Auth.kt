@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.aknindustries.ecosearch.activities.ForgotPasswordActivity
 import com.aknindustries.ecosearch.activities.LoginActivity
+import com.aknindustries.ecosearch.activities.RegisterActivity
 import com.aknindustries.ecosearch.activities.SplashActivity
 import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.models.User
@@ -38,6 +39,25 @@ class Auth(context: Context) {
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
                 activity.loginFailure(errorMessage)
+            }
+        )
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
+
+    fun register(activity: RegisterActivity, registrationData: HashMap<String, String>) {
+        Log.d("Reg", registrationData.toString())
+        val request = JsonObjectRequest(
+            Request.Method.POST,
+            "$baseUrl/register",
+            JSONObject(registrationData as Map<*, *>),
+            { res ->
+                val token = res.getString(Constants.DATA)
+                saveTokenToLocalStorage(activity, token)
+                activity.registrationSuccess()
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.registrationFailure(errorMessage)
             }
         )
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
