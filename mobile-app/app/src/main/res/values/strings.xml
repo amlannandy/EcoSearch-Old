@@ -37,10 +37,9 @@
     <string name="forgot_password_title">Forgot Password</string>
     <string name="forgot_password_content">Please enter your email here. A mail will be sent to you containing a link to reset your password</string>
     <string name="btn_lbl_send_mail">Send Mail</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <!--  Main Activity  -->
+    <string name="title_activity_main">Main Activity</string>
 
     <!--  Home  -->
     <string name="home_title">Home</string>

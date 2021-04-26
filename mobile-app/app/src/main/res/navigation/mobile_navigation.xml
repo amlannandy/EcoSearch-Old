@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.aknindustries.ecosearch.fragments.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/home_title"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_records"
         android:name="com.aknindustries.ecosearch.fragments.RecordsFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/records_title"
         tools:layout="@layout/fragment_records" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_menu"
         android:name="com.aknindustries.ecosearch.fragments.MenuFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/menu_title"
         tools:layout="@layout/fragment_menu" />
 </navigation>
