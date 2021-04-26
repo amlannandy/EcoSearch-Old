@@ -50,4 +50,7 @@
     <!--  Menu  -->
     <string name="menu_title">Menu</string>
 
+    <!--  Profile  -->
+    <string name="profile_title">Profile</string>
+
 </resources>

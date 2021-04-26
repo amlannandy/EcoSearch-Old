@@ -14,9 +14,13 @@
         android:theme="@style/Theme.EcoSearch"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBarLight" />
+        <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBarDark"/>
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
         <activity
             android:name=".activities.ForgotPasswordActivity"
             android:screenOrientation="portrait"

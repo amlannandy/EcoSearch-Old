@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.activities.ProfileActivity
 import com.aknindustries.ecosearch.activities.SplashActivity
 import com.aknindustries.ecosearch.adaptors.MenuListAdaptor
 import com.aknindustries.ecosearch.api.Auth
@@ -49,16 +50,18 @@ class MenuFragment : Fragment() {
 
     fun menuItemOnClick(index: Int) {
         when (index) {
-            0 -> {
-
-            }
-            1 -> {
-                Auth(requireContext()).logOut(requireActivity(), this)
-            }
+            0 -> goToProfile()
+            1 -> logOut()
         }
     }
 
-    fun logOutSuccess() {
+    private fun goToProfile() {
+        val intent = Intent(activity, ProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun logOut() {
+        Auth(requireContext()).logOut(requireActivity())
         val intent = Intent(activity, SplashActivity::class.java)
         startActivity(intent)
         activity?.finish()
