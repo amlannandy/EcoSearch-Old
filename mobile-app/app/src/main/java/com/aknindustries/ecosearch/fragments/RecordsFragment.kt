@@ -4,20 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.activities.MainActivity
 
-class NotificationsFragment : Fragment() {
+class RecordsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        textView.text = "Notifications"
-        return root
+        return inflater.inflate(R.layout.fragment_records, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity?)?.setSupportActionBarTitle(resources.getString(R.string.records_title))
     }
 }

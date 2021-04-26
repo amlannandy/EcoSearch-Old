@@ -1,15 +1,12 @@
 package com.aknindustries.ecosearch.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.aknindustries.ecosearch.R
-import com.aknindustries.ecosearch.activities.SplashActivity
-import com.aknindustries.ecosearch.api.Auth
+import com.aknindustries.ecosearch.activities.MainActivity
 
 class HomeFragment : Fragment() {
 
@@ -18,18 +15,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = "Logout"
-        textView.setOnClickListener {
-            Auth(requireContext()).logOut(requireActivity(), this)
-        }
-        return root
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    fun logOut() {
-        val intent = Intent(activity, SplashActivity::class.java)
-        startActivity(intent)
-        activity?.finish()
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity?)?.setSupportActionBarTitle(resources.getString(R.string.home_title))
     }
 }

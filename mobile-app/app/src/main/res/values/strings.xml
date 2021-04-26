@@ -42,4 +42,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!--  Home  -->
+    <string name="home_title">Home</string>
+
+    <!--  Records  -->
+    <string name="records_title">Records</string>
+
+    <!--  Menu  -->
+    <string name="menu_title">Menu</string>
+
 </resources>

@@ -103,9 +103,9 @@ class Auth(context: Context) {
     fun logOut(activity: Activity, fragment: Fragment) {
         deleteTokenFromLocalStorage(activity)
         deleteUserFromLocalStorage(activity)
-        when (fragment) {
-            is HomeFragment -> fragment.logOut()
-        }
+//        when (fragment) {
+//
+//        }
     }
 
     fun sendPasswordResetEmail(activity: ForgotPasswordActivity, email: String) {
