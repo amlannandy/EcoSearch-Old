@@ -11,6 +11,7 @@ import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.MainActivity
 import com.aknindustries.ecosearch.activities.ProfileActivity
 import com.aknindustries.ecosearch.activities.SplashActivity
+import com.aknindustries.ecosearch.activities.UpdatePasswordActivity
 import com.aknindustries.ecosearch.adaptors.MenuListAdaptor
 import com.aknindustries.ecosearch.api.Auth
 import com.aknindustries.ecosearch.databinding.FragmentMenuBinding
@@ -19,7 +20,7 @@ class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
-    private val menuItems = arrayOf("Profile", "Log out")
+    private val menuItems = arrayOf("Profile", "Update Password", "Log out")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,12 +52,18 @@ class MenuFragment : Fragment() {
     fun menuItemOnClick(index: Int) {
         when (index) {
             0 -> goToProfile()
-            1 -> logOut()
+            1 -> goToUpdatePassword()
+            2 -> logOut()
         }
     }
 
     private fun goToProfile() {
         val intent = Intent(activity, ProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToUpdatePassword() {
+        val intent = Intent(activity, UpdatePasswordActivity::class.java)
         startActivity(intent)
     }
 

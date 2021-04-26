@@ -4,12 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.fragment.app.Fragment
-import com.aknindustries.ecosearch.activities.ForgotPasswordActivity
-import com.aknindustries.ecosearch.activities.LoginActivity
-import com.aknindustries.ecosearch.activities.RegisterActivity
-import com.aknindustries.ecosearch.activities.SplashActivity
-import com.aknindustries.ecosearch.fragments.MenuFragment
+import com.aknindustries.ecosearch.activities.*
 import com.aknindustries.ecosearch.models.User
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.VolleySingleton
@@ -102,6 +97,30 @@ class Auth(context: Context) {
     fun logOut(activity: Activity) {
         deleteTokenFromLocalStorage(activity)
         deleteUserFromLocalStorage(activity)
+    }
+
+    fun updatePassword(activity: UpdatePasswordActivity, postData: HashMap<String, String>) {
+        val token = getTokenFromLocalStorage(activity)!!
+        val request = object: JsonObjectRequest(
+            Method.PUT,
+            "$baseUrl/update-password",
+            JSONObject(postData as Map<*, *>),
+            { res ->
+                val successMessage = res.getString(Constants.MESSAGE)
+                activity.updatePasswordSuccess(successMessage)
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.updatePasswordFailure(errorMessage)
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
     fun sendPasswordResetEmail(activity: ForgotPasswordActivity, email: String) {

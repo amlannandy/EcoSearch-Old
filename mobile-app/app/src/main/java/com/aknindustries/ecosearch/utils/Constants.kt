@@ -23,6 +23,8 @@ object Constants {
     const val USERNAME = "username"
     const val PASSWORD = "password"
     const val CREATED_AT = "created_at"
+    const val CURRENT_PASSWORD = "current_password"
+    const val NEW_PASSWORD = "new_password"
 
     fun getBearerToken(token: String): String {
         return "Bearer $token"

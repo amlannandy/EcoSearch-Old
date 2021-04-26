@@ -53,4 +53,14 @@
     <!--  Profile  -->
     <string name="profile_title">Profile</string>
 
+    <!--  Update Password  -->
+    <string name="update_password_title">Update Password</string>
+    <string name="current_password_hint">Current Password</string>
+    <string name="new_password_hint">New Password</string>
+    <string name="confirm_new_password_hint">Current Password</string>
+    <string name="current_password_err">Enter current password</string>
+    <string name="new_password_err">Enter new password</string>
+    <string name="confirm_new_password_err">Confirm new password</string>
+    <string name="update_password_success">Password updated!</string>
+
 </resources>
