@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="@dimen/btn_padding"
+    android:background="@drawable/menu_list_item_background"
+    android:orientation="horizontal"
+    android:padding="@dimen/et_padding">
+
+    <com.aknindustries.ecosearch.widgets.CustomTextView
+        android:id="@+id/menu_list_item_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/et_textSize"
+        android:paddingEnd="5dp"
+        android:textColor="@color/colorDarkGrey"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/right_arrow_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/right_arrow" />
+
+</LinearLayout>

@@ -9,14 +9,13 @@ import com.aknindustries.ecosearch.activities.ForgotPasswordActivity
 import com.aknindustries.ecosearch.activities.LoginActivity
 import com.aknindustries.ecosearch.activities.RegisterActivity
 import com.aknindustries.ecosearch.activities.SplashActivity
-import com.aknindustries.ecosearch.fragments.HomeFragment
+import com.aknindustries.ecosearch.fragments.MenuFragment
 import com.aknindustries.ecosearch.models.User
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.VolleySingleton
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
-
 
 class Auth(context: Context) {
 
@@ -103,9 +102,9 @@ class Auth(context: Context) {
     fun logOut(activity: Activity, fragment: Fragment) {
         deleteTokenFromLocalStorage(activity)
         deleteUserFromLocalStorage(activity)
-//        when (fragment) {
-//
-//        }
+        when (fragment) {
+            is MenuFragment -> fragment.logOutSuccess()
+        }
     }
 
     fun sendPasswordResetEmail(activity: ForgotPasswordActivity, email: String) {
