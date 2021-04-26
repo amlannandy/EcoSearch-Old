@@ -33,6 +33,7 @@ from server.routes.records import records as RecordsBlueprint
 
 # Setup jwt
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
 jwt = JWTManager(app)
 
 # Setup and init db
