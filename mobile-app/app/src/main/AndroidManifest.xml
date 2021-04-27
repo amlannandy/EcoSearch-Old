@@ -14,6 +14,10 @@
         android:theme="@style/Theme.EcoSearch"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.DeleteAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBarLight" />
+        <activity
             android:name=".activities.UpdatePasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBarLight" />

@@ -142,6 +142,32 @@ class Auth(context: Context) {
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
+    fun deleteAccount(activity: DeleteAccountActivity, password: String) {
+        val token = getTokenFromLocalStorage(activity)!!
+        val data = HashMap<String, String>()
+        data[Constants.PASSWORD] = password
+        val request = object: JsonObjectRequest(
+            Method.PUT,
+            "$baseUrl/delete-account",
+            JSONObject(data as Map<*, *>),
+            { res ->
+                val successMessage = res.getString(Constants.MESSAGE)
+                activity.deleteAccountSuccess(successMessage)
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.deleteAccountFailure(errorMessage)
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
+
     private fun saveTokenToLocalStorage(activity: Activity, token: String) {
         val sharedPreferences = activity.getSharedPreferences(
             Constants.APP_PREFERENCES,

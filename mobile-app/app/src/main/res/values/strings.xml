@@ -2,6 +2,9 @@
     <!--  General  -->
     <string name="app_name">EcoSearch</string>
     <string name="please_wait">Please Wait</string>
+    <string name="confirm">Confirm</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="please_click_back_again_to_exit">Please click back again to exit</string>
 
     <!--  Login  -->
@@ -62,5 +65,12 @@
     <string name="new_password_err">Enter new password</string>
     <string name="confirm_new_password_err">Confirm new password</string>
     <string name="update_password_success">Password updated!</string>
+
+    <!--  Delete Account  -->
+    <string name="delete_account_title">Delete Account</string>
+    <string name="delete_account_content">Warning: Once deleted, your account and related records cannot be recovered</string>
+    <string name="delete_account_dialog_title">Delete Account?</string>
+    <string name="delete_account_dialog">Deleted data cannot be recovered</string>
+
 
 </resources>
