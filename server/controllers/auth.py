@@ -205,11 +205,11 @@ class UpdatePasswordView(MethodView):
 class DeleteAccountView(MethodView):
   # Delete own account
   @login_only
-  def delete(self):
+  def put(self):
     try:
       data = request.get_json()
       password = data['password']
-    except Exception:
+    except Exception as e:
       response = {
         'success': False,
         'msg': 'Please enter your password',
