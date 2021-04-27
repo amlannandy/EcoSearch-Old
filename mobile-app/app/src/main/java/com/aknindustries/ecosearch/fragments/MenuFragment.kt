@@ -17,7 +17,7 @@ class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
-    private val menuItems = arrayOf("Profile", "Update Password", "Delete Account", "Log out")
+    private val menuItems = arrayOf("Edit Profile", "Update Password", "Delete Account", "Log out")
 
     override fun onCreateView(
         inflater: LayoutInflater,

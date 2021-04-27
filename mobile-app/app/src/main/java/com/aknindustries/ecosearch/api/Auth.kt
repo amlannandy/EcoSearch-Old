@@ -70,13 +70,14 @@ class Auth(context: Context) {
                     getUserFromLocalStorage(activity)
                     when (activity) {
                         is SplashActivity -> activity.loadHome()
+                        is ProfileActivity -> activity.updateProfileSuccess()
                     }
                 },
                 { error ->
                     val errorMessage = Constants.getApiErrorMessage(error)
-                    Log.d("User Loading Error", errorMessage)
                     when (activity) {
                         is SplashActivity -> activity.loadLogin()
+                        is ProfileActivity -> activity.updateProfileFailure(errorMessage)
                     }
                 },
             ) {
@@ -97,6 +98,29 @@ class Auth(context: Context) {
     fun logOut(activity: Activity) {
         deleteTokenFromLocalStorage(activity)
         deleteUserFromLocalStorage(activity)
+    }
+
+    fun updateInfo(activity: ProfileActivity, putData: HashMap<String, String>) {
+        val token = getTokenFromLocalStorage(activity)!!
+        val request = object: JsonObjectRequest(
+            Method.PUT,
+            "$baseUrl/update-info",
+            JSONObject(putData as Map<*, *>),
+            {
+                getCurrentUser(activity)
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.updateProfileFailure(errorMessage)
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
     fun updatePassword(activity: UpdatePasswordActivity, postData: HashMap<String, String>) {

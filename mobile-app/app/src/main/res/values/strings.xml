@@ -54,7 +54,11 @@
     <string name="menu_title">Menu</string>
 
     <!--  Profile  -->
-    <string name="profile_title">Profile</string>
+    <string name="profile_title">Edit Profile</string>
+    <string name="hint_name">Name</string>
+    <string name="btn_update_profile">Update</string>
+    <string name="profile_update_success">Profile updated successfully</string>
+    <string name="err_msg_enter_name">Please enter name</string>
 
     <!--  Update Password  -->
     <string name="update_password_title">Update Password</string>
@@ -71,6 +75,5 @@
     <string name="delete_account_content">Warning: Once deleted, your account and related records cannot be recovered</string>
     <string name="delete_account_dialog_title">Delete Account?</string>
     <string name="delete_account_dialog">Deleted data cannot be recovered</string>
-
 
 </resources>
