@@ -37,6 +37,7 @@ class MenuFragment : Fragment() {
         super.onResume()
         (activity as MainActivity?)?.setSupportActionBarTitle(resources.getString(R.string.menu_title))
         setUpMenu()
+        fetchUserDetails()
     }
 
     private fun setUpMenu() {
@@ -44,6 +45,15 @@ class MenuFragment : Fragment() {
         binding.menuRecyclerView.setHasFixedSize(true)
         val menuListAdaptor = MenuListAdaptor(requireContext(), menuItems, this)
         binding.menuRecyclerView.adapter = menuListAdaptor
+    }
+
+    private fun fetchUserDetails() {
+        val user = Auth(requireContext()).getUserFromLocalStorage(requireActivity())
+        if (user != null) {
+            binding.avatarName.text = user.name
+            binding.avatarUsername.text = user.username
+            binding.avatarEmail.text = user.email
+        }
     }
 
     fun menuItemOnClick(index: Int) {

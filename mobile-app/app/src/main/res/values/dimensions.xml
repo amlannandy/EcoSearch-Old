@@ -33,6 +33,10 @@
     <dimen name="txt_terms_and_condition_textSize">14sp</dimen>
 
     <!--  Menu Fragment  -->
-    <dimen name="menu_header_height">120dp</dimen>
+    <dimen name="menu_header_height">200dp</dimen>
+    <dimen name="avatar_height">100dp</dimen>
+    <dimen name="avatar_width">100dp</dimen>
+    <dimen name="avatar_title_size">16sp</dimen>
+    <dimen name="avatar_content_size">14sp</dimen>
 
 </resources>

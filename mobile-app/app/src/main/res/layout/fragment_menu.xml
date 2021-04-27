@@ -4,17 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="?actionBarSize"
     tools:context=".fragments.MenuFragment">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/menu_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_header_height"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </FrameLayout>
+        <ImageView
+            android:layout_width="@dimen/avatar_height"
+            android:layout_height="@dimen/avatar_width"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/user_avatar" />
+
+        <com.aknindustries.ecosearch.widgets.CustomBoldTextView
+            android:id="@+id/avatar_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/avatar_title_size" />
+
+        <com.aknindustries.ecosearch.widgets.CustomTextView
+            android:id="@+id/avatar_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="@dimen/avatar_content_size" />
+
+        <com.aknindustries.ecosearch.widgets.CustomTextView
+            android:id="@+id/avatar_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="@dimen/avatar_content_size" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_recycler_view"

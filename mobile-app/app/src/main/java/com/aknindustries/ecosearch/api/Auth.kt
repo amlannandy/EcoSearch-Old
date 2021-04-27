@@ -206,7 +206,7 @@ class Auth(context: Context) {
         editor.apply()
     }
 
-    private fun getUserFromLocalStorage(activity: Activity): User? {
+    fun getUserFromLocalStorage(activity: Activity): User? {
         val sharedPreferences = activity.getSharedPreferences(
             Constants.APP_PREFERENCES,
             Context.MODE_PRIVATE
