@@ -76,4 +76,8 @@
     <string name="delete_account_dialog_title">Delete Account?</string>
     <string name="delete_account_dialog">Deleted data cannot be recovered</string>
 
+    <!--  Records  -->
+    <string name="action_add_record">Add a Record</string>
+    <string name="action_view_map">View your Map</string>
+
 </resources>
