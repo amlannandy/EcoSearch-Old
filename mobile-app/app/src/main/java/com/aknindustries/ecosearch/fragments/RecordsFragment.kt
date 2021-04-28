@@ -1,10 +1,11 @@
 package com.aknindustries.ecosearch.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.MainActivity
 
 class RecordsFragment : Fragment() {
@@ -40,6 +41,7 @@ class RecordsFragment : Fragment() {
     }
 
     private fun goToAddRecord() {
-        Log.d("Fuck", "Suck")
+        val intent = Intent(activity, AddRecordActivity::class.java)
+        startActivity(intent)
     }
 }

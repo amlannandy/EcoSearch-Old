@@ -79,5 +79,12 @@
     <!--  Records  -->
     <string name="action_add_record">Add a Record</string>
     <string name="action_view_map">View your Map</string>
+    <string name="toolbar_add_record_title">Create a New Record</string>
+    <string name="add_record_title_hint">Enter title</string>
+    <string name="add_record_description_hint">Enter description</string>
+    <string name="add_record_type_hint">Choose type</string>
+    <string name="insect">Insect</string>
+    <string name="plant">Plant</string>
+    <string name="animal">Animal</string>
 
 </resources>

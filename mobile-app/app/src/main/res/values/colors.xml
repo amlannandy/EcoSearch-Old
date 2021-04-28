@@ -2,6 +2,8 @@
 <resources>
     <color name="primary">#11998e</color>
     <color name="accent">#38ef7d</color>
+    <color name="off_green">#E5FBF8</color>
+    <color name="on_green">#B4FFBC</color>
 
     <color name="colorPrimaryText">#222934</color>
     <color name="colorSecondaryText">#989898</color>

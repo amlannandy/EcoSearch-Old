@@ -39,4 +39,7 @@
     <dimen name="avatar_title_size">16sp</dimen>
     <dimen name="avatar_content_size">14sp</dimen>
 
+    <!--  Records  -->
+    <dimen name="add_record_image_height">200dp</dimen>
+
 </resources>
