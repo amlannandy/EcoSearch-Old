@@ -1,7 +1,9 @@
 package com.aknindustries.ecosearch.utils
 
+import android.util.Log
 import com.android.volley.VolleyError
 import org.json.JSONObject
+import java.lang.Exception
 
 object Constants {
 
@@ -31,8 +33,14 @@ object Constants {
     }
 
     fun getApiErrorMessage(error: VolleyError) : String {
-        val jsonObject = JSONObject(String(error.networkResponse.data))
-        return jsonObject.get("msg").toString()
+        return try {
+            val errorResponse = error.networkResponse.data
+            val jsonObject = JSONObject(String(errorResponse))
+            jsonObject.get("msg").toString()
+        } catch (e: Exception) {
+            Log.d("Internal Server Error", e.message.toString())
+            "Internal Server Error"
+        }
     }
 
 }
