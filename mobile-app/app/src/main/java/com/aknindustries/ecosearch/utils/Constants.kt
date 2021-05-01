@@ -7,7 +7,7 @@ import java.lang.Exception
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.0.103:5000"
+    const val BASE_URL = "http://192.168.0.105:5000"
     const val API_VERSION = "/api/v1"
     const val AUTH_CONTROLLER = "/auth"
     const val DATA = "data"

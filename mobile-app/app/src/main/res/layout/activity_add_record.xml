@@ -40,14 +40,30 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/app_name" />
 
-        <ImageView
-            android:id="@+id/btn_add_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="15dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_baseline_camera_alt_24" />
+       <LinearLayout
+           android:padding="5dp"
+           android:orientation="horizontal"
+           android:layout_width="wrap_content"
+           android:layout_gravity="end|bottom"
+           android:layout_height="wrap_content">
+
+           <ImageView
+               android:id="@+id/btn_use_camera"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="15dp"
+               android:contentDescription="@string/app_name"
+               android:src="@drawable/ic_baseline_camera_alt_24" />
+
+           <ImageView
+               android:id="@+id/btn_use_gallery"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="15dp"
+               android:contentDescription="@string/app_name"
+               android:src="@drawable/ic_baseline_insert_photo_24" />
+
+       </LinearLayout>
 
     </FrameLayout>
 
