@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -27,6 +27,7 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
         binding.btnUseGallery.setOnClickListener(this)
+        binding.btnAddRecord.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -49,6 +50,7 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
                         )
                     }
                 }
+                R.id.btn_add_record -> addRecord()
             }
         }
     }
@@ -56,8 +58,6 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.USE_GALLERY_CODE) {
-            Log.d("Grant", grantResults[0].toString())
-            Log.d("Mine", PackageManager.PERMISSION_GRANTED.toString())
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Constants.useGallery(this)
             } else {
@@ -80,6 +80,39 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
             }
+        }
+    }
+
+    private fun addRecord() {
+        val title = binding.addRecordEtTitle.text.toString().trim()
+        val description = binding.addRecordEtDescription.text.toString().trim()
+        val type = when (binding.addRecordCgType.checkedChipId) {
+            R.id.chip_animal -> "animal"
+            R.id.chip_bird -> "bird"
+            R.id.chip_plant -> "plant"
+            R.id.chip_insect -> "insect"
+            else -> "unknown"
+        }
+        if (validateAddRecord(title, description)) {
+            showSnackBar("Validation success", false)
+        }
+    }
+
+    private fun validateAddRecord(title: String, description: String): Boolean {
+        return when {
+            TextUtils.isEmpty(title) -> {
+                showSnackBar(resources.getString(R.string.err_enter_title), true)
+                return false
+            }
+            TextUtils.isEmpty(description) -> {
+                showSnackBar(resources.getString(R.string.err_enter_description), true)
+                return false
+            }
+            mImageUri == null -> {
+                showSnackBar(resources.getString(R.string.err_upload_record_image), true)
+                return false
+            }
+            else -> true
         }
     }
 }

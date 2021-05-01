@@ -86,9 +86,13 @@
     <string name="insect">Insect</string>
     <string name="plant">Plant</string>
     <string name="animal">Animal</string>
+    <string name="bird">Bird</string>
 
     <!--  Add Record  -->
     <string name="use_gallery_permission_denied">Permission to use Gallery denied</string>
     <string name="image_selection_failure">Error loading image from Gallery</string>
+    <string name="err_enter_title">Please enter title</string>
+    <string name="err_enter_description">Please enter description</string>
+    <string name="err_upload_record_image">Please upload a record image</string>
 
 </resources>
