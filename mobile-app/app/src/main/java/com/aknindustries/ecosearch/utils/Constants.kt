@@ -1,5 +1,8 @@
 package com.aknindustries.ecosearch.utils
 
+import android.app.Activity
+import android.content.Intent
+import android.provider.MediaStore
 import android.util.Log
 import com.android.volley.VolleyError
 import org.json.JSONObject
@@ -28,6 +31,9 @@ object Constants {
     const val CURRENT_PASSWORD = "current_password"
     const val NEW_PASSWORD = "new_password"
 
+    // Permissions
+    const val USE_GALLERY_CODE = 1
+
     fun getBearerToken(token: String): String {
         return "Bearer $token"
     }
@@ -41,6 +47,11 @@ object Constants {
             Log.d("Internal Server Error", e.message.toString())
             "Internal Server Error"
         }
+    }
+
+    fun useGallery(activity: Activity) {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        activity.startActivityForResult(intent, USE_GALLERY_CODE)
     }
 
 }

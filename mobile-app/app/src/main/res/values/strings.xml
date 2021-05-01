@@ -87,4 +87,8 @@
     <string name="plant">Plant</string>
     <string name="animal">Animal</string>
 
+    <!--  Add Record  -->
+    <string name="use_gallery_permission_denied">Permission to use Gallery denied</string>
+    <string name="image_selection_failure">Error loading image from Gallery</string>
+
 </resources>
