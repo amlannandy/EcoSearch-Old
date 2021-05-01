@@ -76,9 +76,11 @@
     <string name="delete_account_dialog_title">Delete Account?</string>
     <string name="delete_account_dialog">Deleted data cannot be recovered</string>
 
-    <!--  Records  -->
+    <!--  Records Fragment  -->
     <string name="action_add_record">Add a Record</string>
     <string name="action_view_map">View your Map</string>
+
+    <!--  Add Record  -->
     <string name="toolbar_add_record_title">Create a New Record</string>
     <string name="add_record_title_hint">Enter title</string>
     <string name="add_record_description_hint">Enter description</string>
@@ -87,12 +89,11 @@
     <string name="plant">Plant</string>
     <string name="animal">Animal</string>
     <string name="bird">Bird</string>
-
-    <!--  Add Record  -->
     <string name="use_gallery_permission_denied">Permission to use Gallery denied</string>
     <string name="image_selection_failure">Error loading image from Gallery</string>
     <string name="err_enter_title">Please enter title</string>
     <string name="err_enter_description">Please enter description</string>
     <string name="err_upload_record_image">Please upload a record image</string>
+    <string name="add_record_success">Record successfully added!</string>
 
 </resources>

@@ -13,6 +13,7 @@ object Constants {
     const val BASE_URL = "http://192.168.0.105:5000"
     const val API_VERSION = "/api/v1"
     const val AUTH_CONTROLLER = "/auth"
+    const val RECORDS_CONTROLLER = "/records"
     const val DATA = "data"
     const val MESSAGE = "msg"
 
@@ -30,6 +31,13 @@ object Constants {
     const val CREATED_AT = "created_at"
     const val CURRENT_PASSWORD = "current_password"
     const val NEW_PASSWORD = "new_password"
+
+    // Record model
+    const val TITLE = "title"
+    const val DESCRIPTION = "description"
+    const val TYPE = "type"
+    const val LATITUDE = "latitude"
+    const val LONGITUDE = "longitude"
 
     // Permissions
     const val USE_GALLERY_CODE = 1

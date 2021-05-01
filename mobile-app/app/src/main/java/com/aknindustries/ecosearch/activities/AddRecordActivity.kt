@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityAddRecordBinding
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.GlideLoader
@@ -94,8 +95,24 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
             else -> "unknown"
         }
         if (validateAddRecord(title, description)) {
-            showSnackBar("Validation success", false)
+            showProgressDialog()
+            val postData = HashMap<String, String>()
+            postData[Constants.TITLE] = title
+            postData[Constants.DESCRIPTION] = description
+            postData[Constants.TYPE] = type
+            Records(applicationContext).addRecord(this, postData)
         }
+    }
+
+    fun addRecordSuccess() {
+        hideProgressDialog()
+        showSnackBar(resources.getString(R.string.add_record_success), false)
+        finish()
+    }
+
+    fun addRecordFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
     private fun validateAddRecord(title: String, description: String): Boolean {

@@ -3,7 +3,6 @@ package com.aknindustries.ecosearch.api
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.aknindustries.ecosearch.activities.*
 import com.aknindustries.ecosearch.models.User
 import com.aknindustries.ecosearch.utils.Constants
@@ -39,7 +38,6 @@ class Auth(context: Context) {
     }
 
     fun register(activity: RegisterActivity, registrationData: HashMap<String, String>) {
-        Log.d("Reg", registrationData.toString())
         val request = JsonObjectRequest(
             Request.Method.POST,
             "$baseUrl/register",
@@ -202,7 +200,7 @@ class Auth(context: Context) {
         editor.apply()
     }
 
-    private fun getTokenFromLocalStorage(activity: Activity): String? {
+    fun getTokenFromLocalStorage(activity: Activity): String? {
         val sharedPreferences = activity.getSharedPreferences(
             Constants.APP_PREFERENCES,
             Context.MODE_PRIVATE
