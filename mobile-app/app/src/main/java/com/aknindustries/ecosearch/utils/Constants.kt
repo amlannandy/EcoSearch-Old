@@ -1,7 +1,12 @@
 package com.aknindustries.ecosearch.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.location.Location
+import android.location.LocationManager
+import android.location.LocationProvider
 import android.provider.MediaStore
 import android.util.Log
 import com.android.volley.VolleyError
@@ -41,6 +46,7 @@ object Constants {
 
     // Permissions
     const val USE_GALLERY_CODE = 1
+    const val LOCATION_PERMISSION_CODE = 3
 
     fun getBearerToken(token: String): String {
         return "Bearer $token"
@@ -60,6 +66,12 @@ object Constants {
     fun useGallery(activity: Activity) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         activity.startActivityForResult(intent, USE_GALLERY_CODE)
+    }
+
+    @SuppressLint("MissingPermission")
+    fun getCurrentLocation(activity: Activity): Location? {
+        val locationManager: LocationManager = activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
     }
 
 }

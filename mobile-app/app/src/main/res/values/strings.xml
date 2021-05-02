@@ -95,5 +95,7 @@
     <string name="err_enter_description">Please enter description</string>
     <string name="err_upload_record_image">Please upload a record image</string>
     <string name="add_record_success">Record successfully added!</string>
+    <string name="use_location_permission_denied">Permission to use Location denied</string>
+    <string name="err_need_location">Location is required</string>
 
 </resources>

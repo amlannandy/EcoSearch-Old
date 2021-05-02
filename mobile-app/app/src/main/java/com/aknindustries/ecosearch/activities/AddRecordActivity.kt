@@ -2,9 +2,11 @@ package com.aknindustries.ecosearch.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,6 +20,7 @@ import java.io.IOException
 class AddRecordActivity : BaseActivity(), View.OnClickListener {
 
     private var mImageUri: Uri? = null
+    private var mLocation: Location? = null
     private lateinit var binding: ActivityAddRecordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,8 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
         binding.btnUseGallery.setOnClickListener(this)
         binding.btnAddRecord.setOnClickListener(this)
+
+        getCurrentLocation()
     }
 
     private fun setupActionBar() {
@@ -63,6 +68,12 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
                 Constants.useGallery(this)
             } else {
                 showSnackBar(resources.getString(R.string.use_gallery_permission_denied), true)
+            }
+        } else if (requestCode == Constants.LOCATION_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mLocation = Constants.getCurrentLocation(this)
+            } else {
+                showSnackBar(resources.getString(R.string.use_location_permission_denied), true)
             }
         }
     }
@@ -129,7 +140,24 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
                 showSnackBar(resources.getString(R.string.err_upload_record_image), true)
                 return false
             }
+            mLocation == null -> {
+                showSnackBar(resources.getString(R.string.err_need_location), true)
+                return false
+            }
             else -> true
+        }
+    }
+
+    private fun getCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mLocation = Constants.getCurrentLocation(this)
+            Log.d("Coordinates", "(${mLocation?.latitude}, ${mLocation?.longitude})")
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                Constants.LOCATION_PERMISSION_CODE,
+            )
         }
     }
 }
