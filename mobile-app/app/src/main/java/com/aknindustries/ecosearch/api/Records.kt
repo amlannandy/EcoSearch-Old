@@ -25,7 +25,7 @@ class Records(context: Context) {
             { res ->
                 val jsonData = res.getJSONObject(Constants.DATA)
                 val id = jsonData.getInt("id")
-                addImageToRecord(activity, id, imageUri)
+                addImageToRecord(activity, id, postData[Constants.TITLE] as String, imageUri)
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
@@ -41,7 +41,7 @@ class Records(context: Context) {
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
-    private fun addImageToRecord(activity: AddRecordActivity, id: Int, imageUri: Uri) {
+    private fun addImageToRecord(activity: AddRecordActivity, id: Int, imageName: String, imageUri: Uri) {
         val token = Auth(activity.applicationContext).getTokenFromLocalStorage(activity)!!
         val request = object : MultipartRequest(
             Method.POST,
@@ -61,7 +61,7 @@ class Records(context: Context) {
                 var imageData: ByteArray?
                 inputStream?.buffered()?.use {
                     imageData = it.readBytes()
-                    params["image"] = FileDataPart("image.jpeg", imageData!!, "image/jpeg")
+                    params["image"] = FileDataPart("${imageName}.jpeg", imageData!!, "image/jpeg")
                 }
                 return params
             }
