@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
-import android.location.LocationProvider
 import android.provider.MediaStore
 import android.util.Log
 import com.android.volley.VolleyError
@@ -15,7 +14,7 @@ import java.lang.Exception
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.0.105:5000"
+    const val BASE_URL = "http://192.168.0.104:5000"
     const val API_VERSION = "/api/v1"
     const val AUTH_CONTROLLER = "/auth"
     const val RECORDS_CONTROLLER = "/records"

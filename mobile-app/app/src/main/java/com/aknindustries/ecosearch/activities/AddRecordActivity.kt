@@ -107,11 +107,13 @@ class AddRecordActivity : BaseActivity(), View.OnClickListener {
         }
         if (validateAddRecord(title, description)) {
             showProgressDialog()
-            val postData = HashMap<String, String>()
+            val postData = HashMap<String, Any?>()
             postData[Constants.TITLE] = title
             postData[Constants.DESCRIPTION] = description
             postData[Constants.TYPE] = type
-            Records(applicationContext).addRecord(this, postData)
+            postData[Constants.LATITUDE] = mLocation?.latitude
+            postData[Constants.LONGITUDE] = mLocation?.longitude
+            Records(applicationContext).addRecord(this, postData, mImageUri!!)
         }
     }
 
