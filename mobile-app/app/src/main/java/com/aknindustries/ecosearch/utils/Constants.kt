@@ -37,11 +37,17 @@ object Constants {
     const val NEW_PASSWORD = "new_password"
 
     // Record model
+    const val RECORD_ID = "id"
     const val TITLE = "title"
     const val DESCRIPTION = "description"
     const val TYPE = "type"
+    const val IMAGE = "image"
+    const val LOCATION = "location"
+
+    // Location
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
+    const val ADDRESS = "address"
 
     // Permissions
     const val USE_GALLERY_CODE = 1

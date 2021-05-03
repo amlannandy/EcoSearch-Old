@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.api.Records
 
 class RecordsFragment : Fragment() {
 
@@ -26,6 +27,11 @@ class RecordsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity?)?.setSupportActionBarTitle(resources.getString(R.string.records_title))
+        fetchUserRecords()
+    }
+
+    private fun fetchUserRecords() {
+        Records(requireActivity().applicationContext).fetchUserRecords(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
