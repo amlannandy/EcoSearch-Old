@@ -207,6 +207,8 @@ class ImageUploadView(MethodView):
       return make_response(jsonify(response)), 409
 
     image = request.files.get('image')
+    print(image)
+
     if not image:
       response = {
         'success': False,
@@ -214,7 +216,15 @@ class ImageUploadView(MethodView):
       }
       return make_response(jsonify(response)), 400
 
-    file_name, extension = image.filename.split('.')
+    try:
+      file_name, extension = image.filename.split('.')
+    except ValueError:
+      response = {
+        'success': False,
+        'msg': 'Badly formatted image'
+      }
+      return make_response(jsonify(response)), 400
+
     if extension not in ['jpeg', 'jpg', 'png']:
       response = {
         'success': False,
