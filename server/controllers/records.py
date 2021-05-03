@@ -207,7 +207,6 @@ class ImageUploadView(MethodView):
       return make_response(jsonify(response)), 409
 
     image = request.files.get('image')
-    print(image)
 
     if not image:
       response = {
