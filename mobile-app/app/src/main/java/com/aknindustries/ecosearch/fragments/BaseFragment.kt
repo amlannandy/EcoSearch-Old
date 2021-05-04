@@ -9,7 +9,7 @@ open class BaseFragment : Fragment() {
 
     private lateinit var mProgressDialog: Dialog
 
-    fun showProgressDialog(text: String) {
+    fun showProgressDialog() {
         mProgressDialog = Dialog(requireActivity())
         mProgressDialog.window?.decorView?.background?.colorFilter = LightingColorFilter(
             0xFF000000.toInt(),

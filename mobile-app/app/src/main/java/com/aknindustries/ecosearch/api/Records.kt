@@ -32,13 +32,11 @@ class Records(context: Context) {
                     val record = Record.fromJSON(recordJSONObject)
                     records.add(record)
                 }
-                for (record in records) {
-                    Log.d(record.title, record.description)
-                }
+                fragment.fetchUserProductsSuccess(records)
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
-                Log.d("Error", errorMessage)
+                fragment.fetchUserProductsFailure(errorMessage)
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
