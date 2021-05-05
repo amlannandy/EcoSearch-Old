@@ -4,19 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aknindustries.ecosearch.databinding.UserRecordListItemBinding
-import com.aknindustries.ecosearch.fragments.RecordsFragment
+import com.aknindustries.ecosearch.databinding.ExploreListItemBinding
+import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.models.Record
 import com.aknindustries.ecosearch.utils.GlideLoader
 
-class UserRecordsAdaptor(
+class ExploreItemsAdaptor(
     private val context: Context,
     private val records: ArrayList<Record>,
-    private val fragment: RecordsFragment,
+    private val fragment: HomeFragment,
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = UserRecordListItemBinding.inflate(
+        val binding = ExploreListItemBinding.inflate(
             LayoutInflater.from(context), parent, false
         )
         return MyViewHolder(binding)
@@ -26,10 +26,7 @@ class UserRecordsAdaptor(
         val record = records[position]
         if (holder is MyViewHolder) {
             val binding = holder.binding
-            binding.userRecordListItemTitle.text = record.title
-            binding.userRecordListItemLabel.text = "Unknown"
-            binding.userRecordListItemDate.text = record.createdAt
-            GlideLoader(context).loadRecordImage(record.image, binding.userRecordListItemImage)
+            GlideLoader(fragment.requireContext()).loadRecordImage(record.image, binding.imageViewAvatar)
         }
     }
 
@@ -37,6 +34,6 @@ class UserRecordsAdaptor(
         return records.size
     }
 
-    inner class MyViewHolder(val binding: UserRecordListItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MyViewHolder(val binding: ExploreListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
 }
