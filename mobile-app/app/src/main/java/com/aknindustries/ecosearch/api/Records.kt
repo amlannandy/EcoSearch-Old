@@ -4,11 +4,13 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.aknindustries.ecosearch.activities.AddRecordActivity
+import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.fragments.RecordsFragment
 import com.aknindustries.ecosearch.models.Record
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.MultipartRequest
 import com.aknindustries.ecosearch.utils.VolleySingleton
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
@@ -17,6 +19,29 @@ class Records(context: Context) {
 
     private val currentContext = context
     private val baseUrl = Constants.BASE_URL + Constants.API_VERSION + Constants.RECORDS_CONTROLLER
+
+    fun fetchRecords(fragment: HomeFragment) {
+        val request = JsonObjectRequest(
+            Request.Method.GET,
+            "$baseUrl/explore",
+            null,
+            { res ->
+                val data = res.getJSONArray(Constants.DATA)
+                val records = ArrayList<Record>()
+                for (i in 0 until data.length()) {
+                    val recordJSONObject = data.get(i) as JSONObject
+                    val record = Record.fromJSON(recordJSONObject)
+                    records.add(record)
+                }
+                fragment.fetchRecordsSuccess(records)
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                fragment.fetchRecordsFailure(errorMessage)
+            }
+        )
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
 
     fun fetchUserRecords(fragment: RecordsFragment) {
         val token = Auth(fragment.requireActivity().applicationContext).getTokenFromLocalStorage(fragment.requireActivity())!!
@@ -32,11 +57,11 @@ class Records(context: Context) {
                     val record = Record.fromJSON(recordJSONObject)
                     records.add(record)
                 }
-                fragment.fetchUserProductsSuccess(records)
+                fragment.fetchUserRecordsSuccess(records)
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
-                fragment.fetchUserProductsFailure(errorMessage)
+                fragment.fetchUserRecordsFailure(errorMessage)
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {

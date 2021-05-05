@@ -43,7 +43,7 @@ class RecordsFragment : BaseFragment() {
         Records(requireActivity().applicationContext).fetchUserRecords(this)
     }
 
-    fun fetchUserProductsSuccess(records: ArrayList<Record>) {
+    fun fetchUserRecordsSuccess(records: ArrayList<Record>) {
         hideProgressDialog()
         if (records.isNotEmpty()) {
             val userRecordsAdaptor = UserRecordsAdaptor(requireContext(), records, this)
@@ -55,7 +55,7 @@ class RecordsFragment : BaseFragment() {
         }
     }
 
-    fun fetchUserProductsFailure(errorMessage: String) {
+    fun fetchUserRecordsFailure(errorMessage: String) {
         hideProgressDialog()
         Log.d("Error", errorMessage)
     }
