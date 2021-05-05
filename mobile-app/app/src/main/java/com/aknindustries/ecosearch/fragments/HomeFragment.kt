@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.adaptors.ExploreItemsAdaptor
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.FragmentHomeBinding
 import com.aknindustries.ecosearch.models.Record
+import com.aknindustries.ecosearch.utils.SpannedGridLayoutManager
 
 class HomeFragment : BaseFragment() {
 
@@ -37,6 +39,27 @@ class HomeFragment : BaseFragment() {
 
     fun fetchRecordsSuccess(records: ArrayList<Record>) {
         hideProgressDialog()
+        if (records.isNotEmpty()) {
+            val userRecordsAdaptor = ExploreItemsAdaptor(requireContext(), records, this)
+            binding.fragmentHomeRecyclerView.setHasFixedSize(true)
+            binding.fragmentHomeRecyclerView.layoutManager = SpannedGridLayoutManager(
+                object : SpannedGridLayoutManager.GridSpanLookup {
+                    override fun getSpanInfo(position: Int): SpannedGridLayoutManager.SpanInfo {
+                        // Conditions for 2x2 items
+                        return if (position % 6 == 0 || position % 6 == 4) {
+                            SpannedGridLayoutManager.SpanInfo(2, 2)
+                        } else {
+                            SpannedGridLayoutManager.SpanInfo(1, 1)
+                        }
+                    }
+                },
+                3,
+                1f,
+            )
+            binding.fragmentHomeRecyclerView.adapter = userRecordsAdaptor
+        } else {
+            TODO("Add empty message")
+        }
     }
 
     fun fetchRecordsFailure(errorMessage: String) {
