@@ -13,7 +13,19 @@ from server.helpers.record import (
   find_record_by_email_and_title,
   update_description,
   delete_by_id,
+  find_all_records
 )
+
+class ExploreRecordsView(MethodView):
+  # Get all the latest records sorted by date
+  def get(self):
+    records_data = find_all_records()
+    records = list(map(lambda rec : rec.to_json(), records_data))
+    response = {
+      'success': True,
+      'data': records,
+    }
+    return make_response(jsonify(response)), 200
 
 class UserRecordsView(MethodView):
   # Get all records of a user
@@ -252,4 +264,5 @@ records_controller = {
   'user_records' : UserRecordsView.as_view('user_records'),
   'record': RecordView.as_view('record'),
   'upload_image': ImageUploadView.as_view('upload_image'),
+  'explore': ExploreRecordsView.as_view('explore'),
 }

@@ -18,3 +18,8 @@ records.add_url_rule('/upload-image/<int:id>',
    view_func=records_controller['upload_image'],
    methods=['POST'],
 )
+
+records.add_url_rule('/explore',
+   view_func=records_controller['explore'],
+   methods=['GET'],
+)

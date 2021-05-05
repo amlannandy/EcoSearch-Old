@@ -6,8 +6,11 @@ from server.models.Record import Record
 def find_by_id(id):
   return Record.query.filter_by(id=id).first()
 
+def find_all_records():
+  return Record.query.order_by(Record.created_at.desc()).all()
+
 def find_all_user_records(email):
-  return Record.query.filter_by(user_email=email)
+  return Record.query.filter_by(user_email=email).order_by(Record.created_at.desc())
 
 def save_record(title, description, email, type, location):
   record = Record(title=title, description=description, user_email=email, type=type, location=location)
