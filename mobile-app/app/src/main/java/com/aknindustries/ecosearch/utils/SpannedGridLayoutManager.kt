@@ -47,7 +47,6 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         )
         columns = a.getInt(R.styleable.SpannedGridLayoutManager_spanCount, 1)
         parseAspectRatio(a.getString(R.styleable.SpannedGridLayoutManager_aspectRatio))
-        // TODO use this!
         val orientation = a.getInt(
             R.styleable.SpannedGridLayoutManager_android_orientation, RecyclerView.VERTICAL
         )
