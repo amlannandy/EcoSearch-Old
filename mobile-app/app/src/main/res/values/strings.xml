@@ -79,6 +79,7 @@
     <!--  Records Fragment  -->
     <string name="action_add_record">Add a Record</string>
     <string name="action_view_map">View your Map</string>
+    <string name="no_records_found">No Records Found</string>
 
     <!--  Add Record  -->
     <string name="toolbar_add_record_title">Create a New Record</string>

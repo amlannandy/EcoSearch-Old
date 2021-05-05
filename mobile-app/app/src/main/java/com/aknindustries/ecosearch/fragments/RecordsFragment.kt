@@ -2,7 +2,6 @@ package com.aknindustries.ecosearch.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.ecosearch.R
@@ -51,13 +50,17 @@ class RecordsFragment : BaseFragment() {
             binding.fragmentRecordsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             binding.fragmentRecordsRecyclerView.adapter = userRecordsAdaptor
         } else {
-            TODO("Add empty message")
+            binding.fragmentRecordsRecyclerView.visibility = View.INVISIBLE
+            binding.fragmentRecordsMessage.visibility = View.VISIBLE
+            binding.fragmentRecordsMessage.text = resources.getString(R.string.no_records_found)
         }
     }
 
     fun fetchUserRecordsFailure(errorMessage: String) {
         hideProgressDialog()
-        Log.d("Error", errorMessage)
+        binding.fragmentRecordsRecyclerView.visibility = View.INVISIBLE
+        binding.fragmentRecordsMessage.visibility = View.VISIBLE
+        binding.fragmentRecordsMessage.text = errorMessage
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

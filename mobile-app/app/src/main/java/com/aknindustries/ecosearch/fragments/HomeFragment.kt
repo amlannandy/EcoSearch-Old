@@ -58,11 +58,16 @@ class HomeFragment : BaseFragment() {
             )
             binding.fragmentHomeRecyclerView.adapter = userRecordsAdaptor
         } else {
-            TODO("Add empty message")
+            binding.fragmentHomeRecyclerView.visibility = View.INVISIBLE
+            binding.fragmentHomeMessage.visibility = View.VISIBLE
+            binding.fragmentHomeMessage.text = resources.getString(R.string.no_records_found)
         }
     }
 
     fun fetchRecordsFailure(errorMessage: String) {
         hideProgressDialog()
+        binding.fragmentHomeRecyclerView.visibility = View.INVISIBLE
+        binding.fragmentHomeMessage.visibility = View.VISIBLE
+        binding.fragmentHomeMessage.text = errorMessage
     }
 }
