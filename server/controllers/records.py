@@ -121,14 +121,6 @@ class RecordView(MethodView):
       }
       return make_response(jsonify(response)), 404
 
-    user_email = request.args['user']['email']
-    if record.user_email != user_email:
-      response = {
-        'success': False,
-        'msg': 'Not authorized to view this record'
-      }
-      return make_response(jsonify(response)), 401
-
     response = {
       'success': True,
       'data': record.to_json(),
