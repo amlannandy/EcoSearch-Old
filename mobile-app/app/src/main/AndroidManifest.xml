@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcoSearch"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.RecordDetailsActivity" />
         <activity
             android:name=".activities.AddRecordActivity"
             android:screenOrientation="portrait"

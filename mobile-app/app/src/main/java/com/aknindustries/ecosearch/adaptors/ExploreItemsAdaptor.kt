@@ -26,6 +26,7 @@ class ExploreItemsAdaptor(
         val record = records[position]
         if (holder is MyViewHolder) {
             val binding = holder.binding
+            binding.root.setOnClickListener { fragment.goToRecordDetails(record.id) }
             GlideLoader(fragment.requireContext()).loadRecordImage(record.image, binding.imageViewAvatar)
         }
     }

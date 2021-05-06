@@ -26,6 +26,7 @@ class UserRecordsAdaptor(
         val record = records[position]
         if (holder is MyViewHolder) {
             val binding = holder.binding
+            binding.root.setOnClickListener { fragment.goToRecordDetails(record.id) }
             binding.userRecordListItemTitle.text = record.title
             binding.userRecordListItemLabel.text = "Unknown"
             binding.userRecordListItemDate.text = record.createdAt

@@ -1,15 +1,18 @@
 package com.aknindustries.ecosearch.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.adaptors.ExploreItemsAdaptor
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.FragmentHomeBinding
 import com.aknindustries.ecosearch.models.Record
+import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.SpannedGridLayoutManager
 
 class HomeFragment : BaseFragment() {
@@ -69,5 +72,11 @@ class HomeFragment : BaseFragment() {
         binding.fragmentHomeRecyclerView.visibility = View.INVISIBLE
         binding.fragmentHomeMessage.visibility = View.VISIBLE
         binding.fragmentHomeMessage.text = errorMessage
+    }
+
+    fun goToRecordDetails(id: Int) {
+        val intent = Intent(activity, RecordDetailsActivity::class.java)
+        intent.putExtra(Constants.RECORD_ID, id)
+        startActivity(intent)
     }
 }

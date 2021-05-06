@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.adaptors.UserRecordsAdaptor
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.FragmentRecordsBinding
 import com.aknindustries.ecosearch.models.Record
+import com.aknindustries.ecosearch.utils.Constants
 
 class RecordsFragment : BaseFragment() {
 
@@ -77,6 +79,12 @@ class RecordsFragment : BaseFragment() {
 
     private fun goToAddRecord() {
         val intent = Intent(activity, AddRecordActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun goToRecordDetails(id: Int) {
+        val intent = Intent(activity, RecordDetailsActivity::class.java)
+        intent.putExtra(Constants.RECORD_ID, id)
         startActivity(intent)
     }
 }
