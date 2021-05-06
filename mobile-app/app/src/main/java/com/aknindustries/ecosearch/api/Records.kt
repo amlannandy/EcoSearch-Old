@@ -1,9 +1,11 @@
 package com.aknindustries.ecosearch.api
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.aknindustries.ecosearch.activities.AddRecordActivity
+import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.fragments.RecordsFragment
 import com.aknindustries.ecosearch.models.Record
@@ -19,6 +21,39 @@ class Records(context: Context) {
 
     private val currentContext = context
     private val baseUrl = Constants.BASE_URL + Constants.API_VERSION + Constants.RECORDS_CONTROLLER
+
+    fun fetchRecordById(activity: Activity, id: Int) {
+        val token = Auth(activity.applicationContext).getTokenFromLocalStorage(activity)!!
+        val request = object: JsonObjectRequest(
+            Method.GET,
+            "$baseUrl/$id",
+            null,
+            { res ->
+                val recordJSONData = res.getJSONObject(Constants.DATA)
+                val record = Record.fromJSON(recordJSONData)
+                when (activity) {
+                    is RecordDetailsActivity -> {
+                        activity.fetchRecordSuccess(record)
+                    }
+                }
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                when (activity) {
+                    is RecordDetailsActivity -> {
+                        activity.fetchRecordFailure(errorMessage)
+                    }
+                }
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
 
     fun fetchRecords(fragment: HomeFragment) {
         val request = JsonObjectRequest(
