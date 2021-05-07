@@ -48,4 +48,7 @@
     <dimen name="list_item_margin">10dp</dimen>
     <dimen name="list_item_padding">10dp</dimen>
 
+    <!--  Record Details  -->
+    <dimen name="main_frame_height">400dp</dimen>
+
 </resources>
