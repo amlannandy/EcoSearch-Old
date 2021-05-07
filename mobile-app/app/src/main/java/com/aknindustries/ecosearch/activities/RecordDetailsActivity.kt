@@ -1,9 +1,11 @@
 package com.aknindustries.ecosearch.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityRecordDetailsBinding
@@ -13,6 +15,7 @@ import com.aknindustries.ecosearch.utils.GlideLoader
 
 class RecordDetailsActivity : BaseActivity() {
 
+    private var mRecord: Record? = null
     private lateinit var binding: ActivityRecordDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,7 @@ class RecordDetailsActivity : BaseActivity() {
 
     fun fetchRecordSuccess(record: Record) {
         hideProgressDialog()
+        mRecord = record
         GlideLoader(applicationContext).loadRecordImage(record.image, binding.recordDetailsImageView)
         binding.toolbarTitle.text = null
     }
@@ -42,6 +46,19 @@ class RecordDetailsActivity : BaseActivity() {
     fun fetchRecordFailure(errorMessage: String) {
         hideProgressDialog()
         Log.d("Error", errorMessage)
+    }
+
+    private fun goToEditRecord() {
+        if (mRecord != null) {
+            intent = Intent(this@RecordDetailsActivity, EditRecordActivity::class.java)
+            intent.putExtra(Constants.RECORD_ID, mRecord!!.id)
+            intent.putExtra(Constants.DESCRIPTION, mRecord!!.description)
+            startActivity(intent)
+        }
+    }
+
+    private fun deleteRecord() {
+
     }
 
     private fun setupActionBar() {
@@ -54,5 +71,13 @@ class RecordDetailsActivity : BaseActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.record_details_menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_edit_record -> goToEditRecord()
+            R.id.action_delete_record -> deleteRecord()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
