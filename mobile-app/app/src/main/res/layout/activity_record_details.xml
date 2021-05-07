@@ -9,18 +9,18 @@
 
     <FrameLayout
         android:id="@+id/main_frame"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_frame_height"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_frame_height">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/record_details_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/app_background"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/app_background" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_record_details_activity"
@@ -38,23 +38,24 @@
                 android:gravity="center"
                 android:paddingStart="@dimen/toolbar_title_paddingStart"
                 android:paddingEnd="@dimen/toolbar_title_paddingEnd"
-                android:textColor="@color/white"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/toolbar_title_text_size" />
 
         </androidx.appcompat.widget.Toolbar>
 
         <com.aknindustries.ecosearch.widgets.CustomTextView
-            android:layout_margin="20dp"
-            android:layout_gravity="bottom|end"
-            android:text="@string/app_name"
             android:id="@+id/user_record_list_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
             android:layout_marginVertical="10dp"
             android:background="@drawable/dark_background"
             android:gravity="center"
             android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="14sp" />
 

@@ -2,6 +2,9 @@ package com.aknindustries.ecosearch.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityRecordDetailsBinding
 import com.aknindustries.ecosearch.models.Record
@@ -33,7 +36,7 @@ class RecordDetailsActivity : BaseActivity() {
     fun fetchRecordSuccess(record: Record) {
         hideProgressDialog()
         GlideLoader(applicationContext).loadRecordImage(record.image, binding.recordDetailsImageView)
-        binding.toolbarTitle.text = record.title
+        binding.toolbarTitle.text = null
     }
 
     fun fetchRecordFailure(errorMessage: String) {
@@ -45,5 +48,11 @@ class RecordDetailsActivity : BaseActivity() {
         setSupportActionBar(binding.toolbarRecordDetailsActivity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbarRecordDetailsActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.record_details_menu, menu)
+        return true
     }
 }
