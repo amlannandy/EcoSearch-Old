@@ -104,5 +104,6 @@
     <string name="action_delete_record">Delete Record</string>
     <string name="btn_lbl_identify_image">Identify Image</string>
     <string name="unknown">Unknown</string>
+    <string name="go_to_map">Go to Map</string>
 
 </resources>

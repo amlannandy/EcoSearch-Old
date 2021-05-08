@@ -77,9 +77,8 @@
                 android:id="@+id/record_details_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:textColor="@color/colorPrimaryText"
-                 />
+                android:textSize="18sp" />
 
             <com.aknindustries.ecosearch.widgets.CustomTextView
                 android:id="@+id/record_details_type"
@@ -88,8 +87,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/dark_background"
                 android:gravity="center"
-                android:paddingVertical="5dp"
                 android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -120,7 +119,17 @@
 
         </LinearLayout>
 
-
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_go_to_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/go_to_map"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
