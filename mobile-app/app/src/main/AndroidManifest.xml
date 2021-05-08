@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcoSearch"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.EditRecordActivity"></activity>
+        <activity
+            android:name=".activities.EditRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBarLight" />
         <activity
             android:name=".activities.RecordDetailsActivity"
             android:screenOrientation="portrait"

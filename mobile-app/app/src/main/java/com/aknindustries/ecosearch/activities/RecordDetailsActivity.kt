@@ -18,6 +18,11 @@ class RecordDetailsActivity : BaseActivity() {
     private var mRecord: Record? = null
     private lateinit var binding: ActivityRecordDetailsBinding
 
+    override fun onResume() {
+        super.onResume()
+        fetchRecord()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecordDetailsBinding.inflate(layoutInflater)
@@ -25,7 +30,6 @@ class RecordDetailsActivity : BaseActivity() {
         setContentView(view)
 
         setupActionBar()
-        fetchRecord()
     }
 
     private fun fetchRecord() {

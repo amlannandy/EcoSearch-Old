@@ -106,4 +106,7 @@
     <string name="unknown">Unknown</string>
     <string name="go_to_map">Go to Map</string>
 
+    <!--  Edit Record  -->
+    <string name="edit_record_title">Edit Record</string>
+
 </resources>

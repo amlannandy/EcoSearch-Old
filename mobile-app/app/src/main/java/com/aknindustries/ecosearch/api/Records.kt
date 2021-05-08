@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import com.aknindustries.ecosearch.activities.AddRecordActivity
+import com.aknindustries.ecosearch.activities.EditRecordActivity
 import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.fragments.RecordsFragment
@@ -157,6 +158,31 @@ class Records(context: Context) {
                 }
                 return params
             }
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
+
+    fun updateRecord(activity: EditRecordActivity, id: Int, description: String) {
+        val token = Auth(activity.applicationContext).getTokenFromLocalStorage(activity)!!
+        val putData = HashMap<String, String>()
+        putData[Constants.DESCRIPTION] = description
+        val request = object: JsonObjectRequest(
+            Method.PUT,
+            "$baseUrl/$id",
+            JSONObject(putData as Map<*, *>),
+            {
+                activity.updateRecordSuccess()
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.updateRecordFailure(errorMessage)
+            }
+        ) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
