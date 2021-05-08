@@ -192,4 +192,27 @@ class Records(context: Context) {
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
+    fun deleteRecord(activity: RecordDetailsActivity, id: Int) {
+        val token = Auth(activity.applicationContext).getTokenFromLocalStorage(activity)!!
+        val request = object: JsonObjectRequest(
+            Method.DELETE,
+            "$baseUrl/$id",
+            null,
+            {
+                activity.deleteRecordSuccess()
+            },
+            { error ->
+                val errorMessage = Constants.getApiErrorMessage(error)
+                activity.deleteRecordFailure(errorMessage)
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers[Constants.AUTHORIZATION_HEADER] = Constants.getBearerToken(token)
+                return headers
+            }
+        }
+        VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
+    }
+
 }

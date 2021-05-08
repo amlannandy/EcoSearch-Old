@@ -1,5 +1,6 @@
 package com.aknindustries.ecosearch.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -68,8 +69,41 @@ class RecordDetailsActivity : BaseActivity() {
         }
     }
 
-    private fun deleteRecord() {
+    private fun deleteRecordConfirmation() {
+        val id = intent.getIntExtra(Constants.RECORD_ID, -1)
+        if (id == -1)
+            return
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(resources.getString(R.string.delete_record_dialog_title))
+        builder.setMessage(resources.getString(R.string.delete_record_dialog))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        // Yes
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
+            dialogInterface.dismiss()
+            deleteRecord(id)
+        }
+        // No
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
 
+    private fun deleteRecord(id: Int) {
+        showProgressDialog()
+        Records(applicationContext).deleteRecord(this, id)
+    }
+
+    fun deleteRecordSuccess() {
+        hideProgressDialog()
+        finish()
+    }
+
+    fun deleteRecordFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
     private fun setupActionBar() {
@@ -87,7 +121,7 @@ class RecordDetailsActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_edit_record -> goToEditRecord()
-            R.id.action_delete_record -> deleteRecord()
+            R.id.action_delete_record -> deleteRecordConfirmation()
         }
         return super.onOptionsItemSelected(item)
     }
