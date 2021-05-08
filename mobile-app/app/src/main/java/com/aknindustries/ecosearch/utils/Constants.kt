@@ -20,6 +20,7 @@ object Constants {
     const val RECORDS_CONTROLLER = "/records"
     const val DATA = "data"
     const val MESSAGE = "msg"
+    const val NULL = "null"
 
     const val APP_PREFERENCES = "eco_search"
     const val ECO_SEARCH_TOKEN = "eco_search_token"
@@ -43,6 +44,8 @@ object Constants {
     const val TYPE = "type"
     const val IMAGE = "image"
     const val LOCATION = "location"
+    const val LABEL = "label"
+    const val CONFIDENCE = "confidence"
 
     // Location
     const val LATITUDE = "latitude"

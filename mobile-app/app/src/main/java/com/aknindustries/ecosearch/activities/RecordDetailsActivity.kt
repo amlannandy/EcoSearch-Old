@@ -44,7 +44,10 @@ class RecordDetailsActivity : BaseActivity() {
         binding.recordDetailsTitle.text = record.title
         binding.recordDetailsDescription.text = record.description
         binding.recordDetailsType.text = record.type
-        binding.recordDetailsLabel.text = "Unknown"
+        binding.recordDetailsLabel.text = when (record.label) {
+            Constants.NULL -> resources.getString(R.string.unknown)
+            else -> record.label
+        }
     }
 
     fun fetchRecordFailure(errorMessage: String) {

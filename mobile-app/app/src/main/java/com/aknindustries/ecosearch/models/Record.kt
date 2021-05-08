@@ -11,6 +11,8 @@ class Record (
     val type: String,
     val createdAt: String,
     val location: Location,
+    val label: String?,
+    val confidence: String?,
 ) {
 
     companion object {
@@ -23,6 +25,8 @@ class Record (
                 type = recordJSONObject.getString(Constants.TYPE),
                 createdAt = recordJSONObject.getString(Constants.CREATED_AT),
                 location = Location.fromJSON(recordJSONObject.getJSONObject(Constants.LOCATION)),
+                label = recordJSONObject.getString(Constants.LABEL),
+                confidence = recordJSONObject.getString(Constants.CONFIDENCE),
             )
         }
     }
