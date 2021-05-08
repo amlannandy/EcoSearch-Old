@@ -2,6 +2,7 @@ package com.aknindustries.ecosearch.activities
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -31,6 +32,7 @@ class RecordDetailsActivity : BaseActivity() {
         setContentView(view)
 
         setupActionBar()
+        binding.fabGoToMap.setOnClickListener { openMaps() }
     }
 
     private fun fetchRecord() {
@@ -104,6 +106,15 @@ class RecordDetailsActivity : BaseActivity() {
     fun deleteRecordFailure(errorMessage: String) {
         hideProgressDialog()
         showSnackBar(errorMessage, true)
+    }
+
+    private fun openMaps() {
+        if (mRecord != null) {
+            intent = Intent(Intent.ACTION_VIEW, Uri.parse(
+                "http://maps.google.com/maps?daddr=${mRecord!!.location.latitude},${mRecord!!.location.longitude}"
+            ))
+            startActivity(intent)
+        }
     }
 
     private fun setupActionBar() {
