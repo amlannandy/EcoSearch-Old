@@ -2,11 +2,10 @@ package com.aknindustries.ecosearch.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.activities.MapsActivity
 import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.adaptors.ExploreItemsAdaptor
 import com.aknindustries.ecosearch.api.Records
@@ -19,6 +18,11 @@ class HomeFragment : BaseFragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +76,23 @@ class HomeFragment : BaseFragment() {
         binding.fragmentHomeRecyclerView.visibility = View.INVISIBLE
         binding.fragmentHomeMessage.visibility = View.VISIBLE
         binding.fragmentHomeMessage.text = errorMessage
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_view_map -> goToMapView()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun goToMapView() {
+        val intent = Intent(activity, MapsActivity::class.java)
+        startActivity(intent)
     }
 
     fun goToRecordDetails(id: Int) {

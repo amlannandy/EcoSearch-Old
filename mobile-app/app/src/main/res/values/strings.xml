@@ -110,5 +110,6 @@
 
     <!--  Edit Record  -->
     <string name="edit_record_title">Edit Record</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

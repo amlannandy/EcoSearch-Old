@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.MainActivity
+import com.aknindustries.ecosearch.activities.MapsActivity
 import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.adaptors.UserRecordsAdaptor
 import com.aknindustries.ecosearch.api.Records
@@ -73,8 +74,14 @@ class RecordsFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_add_record -> goToAddRecord()
+            R.id.action_view_map -> goToMapView()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun goToMapView() {
+        val intent = Intent(activity, MapsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun goToAddRecord() {
