@@ -39,8 +39,12 @@ class RecordDetailsActivity : BaseActivity() {
     fun fetchRecordSuccess(record: Record) {
         hideProgressDialog()
         mRecord = record
-        GlideLoader(applicationContext).loadRecordImage(record.image, binding.recordDetailsImageView)
         binding.toolbarTitle.text = null
+        GlideLoader(applicationContext).loadRecordImage(record.image, binding.recordDetailsImageView)
+        binding.recordDetailsTitle.text = record.title
+        binding.recordDetailsDescription.text = record.description
+        binding.recordDetailsType.text = record.type
+        binding.recordDetailsLabel.text = "Unknown"
     }
 
     fun fetchRecordFailure(errorMessage: String) {

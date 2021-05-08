@@ -45,7 +45,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.aknindustries.ecosearch.widgets.CustomTextView
-            android:id="@+id/user_record_list_item_label"
+            android:id="@+id/record_details_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
@@ -55,10 +55,72 @@
             android:gravity="center"
             android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
-            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
     </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_frame">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.aknindustries.ecosearch.widgets.CustomBoldTextView
+                android:id="@+id/record_details_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryText"
+                 />
+
+            <com.aknindustries.ecosearch.widgets.CustomTextView
+                android:id="@+id/record_details_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/dark_background"
+                android:gravity="center"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <com.aknindustries.ecosearch.widgets.CustomTextView
+                android:id="@+id/record_details_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorDarkGrey"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_forgot_password_activity" />
+
+            <com.aknindustries.ecosearch.widgets.CustomButton
+                android:id="@+id/btn_identify_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:paddingTop="@dimen/btn_padding"
+                android:paddingBottom="@dimen/btn_padding"
+                android:text="@string/btn_lbl_identify_image"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/btn_textSize" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

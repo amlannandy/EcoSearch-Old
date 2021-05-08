@@ -102,5 +102,6 @@
     <!--  Records Details  -->
     <string name="action_edit_record">Edit Record</string>
     <string name="action_delete_record">Delete Record</string>
+    <string name="btn_lbl_identify_image">Identify Image</string>
 
 </resources>
