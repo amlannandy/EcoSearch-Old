@@ -4,10 +4,10 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityRecordDetailsBinding
@@ -59,7 +59,12 @@ class RecordDetailsActivity : BaseActivity() {
 
     fun fetchRecordFailure(errorMessage: String) {
         hideProgressDialog()
-        Log.d("Error", errorMessage)
+        binding.recordDetailsImageView.visibility = View.GONE
+        binding.recordDetailsLabel.visibility = View.GONE
+        binding.recordDetailsScrollView.visibility = View.GONE
+        binding.fabGoToMap.visibility = View.GONE
+        binding.recordDetailsErrorMessage.visibility = View.VISIBLE
+        binding.recordDetailsErrorMessage.text = errorMessage
     }
 
     private fun goToEditRecord() {
