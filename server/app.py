@@ -30,6 +30,7 @@ mail = Mail(app)
 
 from server.routes.auth import auth as AuthBlueprint
 from server.routes.records import records as RecordsBlueprint
+from server.routes.classification import classification as ClassificationBlueprint
 
 # Setup jwt
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
@@ -50,3 +51,4 @@ cloudinary.config(
 
 app.register_blueprint(AuthBlueprint)
 app.register_blueprint(RecordsBlueprint)
+app.register_blueprint(ClassificationBlueprint)
