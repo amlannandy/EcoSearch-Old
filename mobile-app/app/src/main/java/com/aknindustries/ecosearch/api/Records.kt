@@ -3,7 +3,6 @@ package com.aknindustries.ecosearch.api
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.EditRecordActivity
 import com.aknindustries.ecosearch.activities.MapsActivity
@@ -140,7 +139,7 @@ class Records(context: Context) {
             JSONObject(postData as Map<*, *>),
             { res ->
                 val jsonData = res.getJSONObject(Constants.DATA)
-                val id = jsonData.getInt("id")
+                val id = jsonData.getInt(Constants.RECORD_ID)
                 addImageToRecord(activity, id, postData[Constants.TITLE] as String, imageUri)
             },
             { error ->
@@ -163,7 +162,6 @@ class Records(context: Context) {
             Method.POST,
             "${baseUrl}/upload-image/${id}",
             Response.Listener { res ->
-                Log.d("Date", res.data.toString())
                 activity.addRecordSuccess()
             },
             Response.ErrorListener { error ->
