@@ -92,6 +92,7 @@ class HomeFragment : BaseFragment() {
 
     private fun goToMapView() {
         val intent = Intent(activity, MapsActivity::class.java)
+        intent.putExtra(Constants.FETCH_ALL, true)
         startActivity(intent)
     }
 

@@ -79,7 +79,9 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
             mMap.addMarker(MarkerOptions().position(location).title(record.title))
         }
         val currentLocation = Constants.getCurrentLocation(this)!!
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(currentLocation.latitude, currentLocation.longitude)))
+        val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
     }
 
     fun fetchRecordsFailure(errorMessage: String) {
