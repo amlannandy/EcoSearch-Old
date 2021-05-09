@@ -1,9 +1,14 @@
 package com.aknindustries.ecosearch.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.aknindustries.ecosearch.R
+import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityMapsBinding
+import com.aknindustries.ecosearch.models.Record
+import com.aknindustries.ecosearch.utils.Constants
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,7 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -30,9 +35,56 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        requestFineLocationPermission()
+    }
+
+    private fun requestFineLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fetchRecords()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                Constants.LOCATION_PERMISSION_CODE,
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Constants.LOCATION_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchRecords()
+            } else {
+                showSnackBar(resources.getString(R.string.use_location_permission_denied), true)
+            }
+        }
+    }
+
+    private fun fetchRecords() {
+        val fetchAll = intent.getBooleanExtra(Constants.FETCH_ALL, false)
+        showProgressDialog()
+        if (fetchAll) {
+            Records(applicationContext).fetchRecords(this)
+        } else {
+            Records(applicationContext).fetchUserRecords(this)
+        }
+    }
+
+    fun fetchRecordsSuccess(records: ArrayList<Record>) {
+        hideProgressDialog()
+        for (record in records) {
+            val location = LatLng(record.location.latitude, record.location.longitude)
+            mMap.addMarker(MarkerOptions().position(location).title(record.title))
+        }
+        val currentLocation = Constants.getCurrentLocation(this)!!
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(currentLocation.latitude, currentLocation.longitude)))
+    }
+
+    fun fetchRecordsFailure(errorMessage: String) {
+        hideProgressDialog()
+        showSnackBar(errorMessage, true)
     }
 
     private fun setupActionBar() {

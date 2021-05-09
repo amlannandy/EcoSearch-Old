@@ -56,6 +56,9 @@ object Constants {
     const val USE_GALLERY_CODE = 1
     const val LOCATION_PERMISSION_CODE = 3
 
+    // Maps
+    const val FETCH_ALL = "fetchAll"
+
     fun getBearerToken(token: String): String {
         return "Bearer $token"
     }

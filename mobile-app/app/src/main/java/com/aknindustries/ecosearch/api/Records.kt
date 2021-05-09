@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import com.aknindustries.ecosearch.activities.AddRecordActivity
 import com.aknindustries.ecosearch.activities.EditRecordActivity
+import com.aknindustries.ecosearch.activities.MapsActivity
 import com.aknindustries.ecosearch.activities.RecordDetailsActivity
 import com.aknindustries.ecosearch.fragments.HomeFragment
 import com.aknindustries.ecosearch.fragments.RecordsFragment
@@ -56,7 +57,7 @@ class Records(context: Context) {
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
-    fun fetchRecords(fragment: HomeFragment) {
+    fun fetchRecords(screen: Any) {
         val request = JsonObjectRequest(
             Request.Method.GET,
             "$baseUrl/explore",
@@ -69,18 +70,34 @@ class Records(context: Context) {
                     val record = Record.fromJSON(recordJSONObject)
                     records.add(record)
                 }
-                fragment.fetchRecordsSuccess(records)
+                when (screen) {
+                    is HomeFragment -> screen.fetchRecordsSuccess(records)
+                    is MapsActivity -> screen.fetchRecordsSuccess(records)
+                }
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
-                fragment.fetchRecordsFailure(errorMessage)
+                when (screen) {
+                    is HomeFragment -> screen.fetchRecordsFailure(errorMessage)
+                    is MapsActivity -> screen.fetchRecordsFailure(errorMessage)
+                }
             }
         )
         VolleySingleton.getInstance(currentContext).addToRequestQueue(request)
     }
 
-    fun fetchUserRecords(fragment: RecordsFragment) {
-        val token = Auth(fragment.requireActivity().applicationContext).getTokenFromLocalStorage(fragment.requireActivity())!!
+    fun fetchUserRecords(screen: Any) {
+        val appContext = when (screen) {
+            is RecordsFragment -> screen.requireActivity().applicationContext
+            is MapsActivity -> screen.applicationContext
+            else -> null
+        }
+        val activity = when (screen) {
+            is RecordsFragment -> screen.requireActivity()
+            is MapsActivity -> screen
+            else -> null
+        }
+        val token = Auth(appContext!!).getTokenFromLocalStorage(activity!!)!!
         val request = object: JsonObjectRequest(
             Method.GET,
             "$baseUrl/",
@@ -93,11 +110,17 @@ class Records(context: Context) {
                     val record = Record.fromJSON(recordJSONObject)
                     records.add(record)
                 }
-                fragment.fetchUserRecordsSuccess(records)
+                when (screen) {
+                    is HomeFragment -> screen.fetchRecordsSuccess(records)
+                    is MapsActivity -> screen.fetchRecordsSuccess(records)
+                }
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
-                fragment.fetchUserRecordsFailure(errorMessage)
+                when (screen) {
+                    is HomeFragment -> screen.fetchRecordsFailure(errorMessage)
+                    is MapsActivity -> screen.fetchRecordsFailure(errorMessage)
+                }
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
