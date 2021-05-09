@@ -111,14 +111,14 @@ class Records(context: Context) {
                     records.add(record)
                 }
                 when (screen) {
-                    is HomeFragment -> screen.fetchRecordsSuccess(records)
+                    is RecordsFragment -> screen.fetchUserRecordsSuccess(records)
                     is MapsActivity -> screen.fetchRecordsSuccess(records)
                 }
             },
             { error ->
                 val errorMessage = Constants.getApiErrorMessage(error)
                 when (screen) {
-                    is HomeFragment -> screen.fetchRecordsFailure(errorMessage)
+                    is RecordsFragment -> screen.fetchUserRecordsFailure(errorMessage)
                     is MapsActivity -> screen.fetchRecordsFailure(errorMessage)
                 }
             }
