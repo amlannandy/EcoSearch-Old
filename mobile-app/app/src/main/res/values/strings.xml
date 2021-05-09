@@ -112,4 +112,7 @@
     <string name="edit_record_title">Edit Record</string>
     <string name="title_activity_maps">Map</string>
 
+    <!--  Map Activity  -->
+    <string name="map_explore_label">Explore</string>
+
 </resources>

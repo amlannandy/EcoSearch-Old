@@ -23,7 +23,7 @@
         <activity
             android:name=".activities.MapsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBarLight" />
+            android:theme="@style/Theme.AppCompat.NoActionBarDark" />
         <activity
             android:name=".activities.EditRecordActivity"
             android:screenOrientation="portrait"
