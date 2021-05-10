@@ -9,6 +9,7 @@ import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityMapsBinding
 import com.aknindustries.ecosearch.models.Record
 import com.aknindustries.ecosearch.utils.Constants
+import com.aknindustries.ecosearch.utils.CustomBitmapDescriptor
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -76,12 +77,25 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         hideProgressDialog()
         for (record in records) {
             val location = LatLng(record.location.latitude, record.location.longitude)
-            mMap.addMarker(MarkerOptions().position(location).title(record.title))
+            mMap.addMarker(MarkerOptions()
+                .position(location)
+                .title(record.title)
+                .icon(CustomBitmapDescriptor().bitmapDescriptorFromVector(
+                    applicationContext,
+                    when (record.type) {
+                        Constants.ANIMAL -> R.drawable.ic_animal
+                        Constants.BIRD -> R.drawable.ic_bird
+                        Constants.PLANT -> R.drawable.ic_plant
+                        Constants.INSECT -> R.drawable.ic_insect
+                        else -> R.drawable.ic_baseline_location_on_24
+                    }
+                ))
+            )
         }
         val currentLocation = Constants.getCurrentLocation(this)!!
         val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng))
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(20F))
     }
 
     fun fetchRecordsFailure(errorMessage: String) {

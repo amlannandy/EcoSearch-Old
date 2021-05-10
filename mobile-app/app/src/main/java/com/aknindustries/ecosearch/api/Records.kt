@@ -161,7 +161,7 @@ class Records(context: Context) {
         val request = object : MultipartRequest(
             Method.POST,
             "${baseUrl}/upload-image/${id}",
-            Response.Listener { res ->
+            Response.Listener {
                 activity.addRecordSuccess()
             },
             Response.ErrorListener { error ->

@@ -59,6 +59,12 @@ object Constants {
     // Maps
     const val FETCH_ALL = "fetchAll"
 
+    // Types
+    const val ANIMAL = "animal"
+    const val PLANT = "plant"
+    const val BIRD = "bird"
+    const val INSECT = "insect"
+
     fun getBearerToken(token: String): String {
         return "Bearer $token"
     }
