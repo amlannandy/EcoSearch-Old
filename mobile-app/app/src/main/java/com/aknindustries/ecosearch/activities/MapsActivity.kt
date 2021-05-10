@@ -2,12 +2,12 @@ package com.aknindustries.ecosearch.activities
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aknindustries.ecosearch.R
 import com.aknindustries.ecosearch.api.Records
 import com.aknindustries.ecosearch.databinding.ActivityMapsBinding
+import com.aknindustries.ecosearch.fragments.RecordBottomSheetFragment
 import com.aknindustries.ecosearch.models.Record
 import com.aknindustries.ecosearch.utils.Constants
 import com.aknindustries.ecosearch.utils.CustomBitmapDescriptor
@@ -118,7 +118,9 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun openBottomSheet(record: Record?) {
         if (record != null) {
-            Log.d("Record", record.title)
+            RecordBottomSheetFragment(record).apply {
+                show(supportFragmentManager, RecordBottomSheetFragment.TAG)
+            }
         }
     }
 }

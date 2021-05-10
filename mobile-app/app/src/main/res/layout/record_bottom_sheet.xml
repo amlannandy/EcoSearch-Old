@@ -5,40 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:orientation="horizontal"
+    android:background="@color/white"
+    android:orientation="vertical"
     android:padding="16dp"
     app:behavior_hideable="false"
     app:behavior_peekHeight="@dimen/modal_peek_height"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+    <ImageView
+        android:id="@+id/record_bottom_sheet_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_image_height"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/app_name" />
+
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <com.aknindustries.ecosearch.widgets.CustomBoldTextView
-            android:id="@+id/record_bottom_sheet_title"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.aknindustries.ecosearch.widgets.CustomBoldTextView
+                android:id="@+id/record_bottom_sheet_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp" />
+
+            <com.aknindustries.ecosearch.widgets.CustomTextView
+                android:id="@+id/record_bottom_sheet_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/record_bottom_sheet_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="18sp" />
-
-        <com.aknindustries.ecosearch.widgets.CustomTextView
-            android:id="@+id/record_bottom_sheet_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorSecondaryText"
-            android:textSize="14sp" />
+            android:contentDescription="@string/app_name"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_subdirectory_arrow_right_24"
+            app:tint="@color/black" />
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/record_bottom_sheet_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/app_name"
-        android:padding="8dp"
-        android:src="@drawable/ic_baseline_subdirectory_arrow_right_24" />
 
 </LinearLayout>
