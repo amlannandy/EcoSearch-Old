@@ -2,6 +2,7 @@ package com.aknindustries.ecosearch.activities
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aknindustries.ecosearch.R
@@ -22,6 +23,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private val mRecordsData = HashMap<String, Record>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     fun fetchRecordsSuccess(records: ArrayList<Record>) {
         hideProgressDialog()
         for (record in records) {
+            mRecordsData[record.title] = record
             val location = LatLng(record.location.latitude, record.location.longitude)
             mMap.addMarker(MarkerOptions()
                 .position(location)
@@ -92,6 +95,10 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
                 ))
             )
         }
+        mMap.setOnMarkerClickListener { marker ->
+            openBottomSheet(mRecordsData[marker.title])
+            true
+        }
         val currentLocation = Constants.getCurrentLocation(this)!!
         val currentLatLng = LatLng(currentLocation.latitude, currentLocation.longitude)
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng))
@@ -107,5 +114,11 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         setSupportActionBar(binding.toolbarMapsActivity)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbarMapsActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    private fun openBottomSheet(record: Record?) {
+        if (record != null) {
+            Log.d("Record", record.title)
+        }
     }
 }
