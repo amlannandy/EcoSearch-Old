@@ -1,0 +1,23 @@
+$color_primary: #151680;
+$color_accent: #1c44ac;
+$color_dark: #444444;
+$color_grey: #ccc;
+$color_white: #ffffff;
+$color_danger: #e20049;
+$color_success: #58b368;
+
+$heading_1: 28px;
+$paragraph: 18px;
+
+// Button
+.btn {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  min-width: 300px;
+}
+
+.btn-primary {
+  background-color: $color_primary;
+}

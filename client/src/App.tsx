@@ -1,17 +1,11 @@
 import React from 'react';
-import './App.css';
-
-import CustomButton from './components/layout/CustomButton';
+import './styles/App.scss';
 
 const App = () => {
   return (
     <div>
       <h1>Hello World</h1>
-      <CustomButton
-        text='Test'
-        onPress={() => console.log('Test')}
-        type='primary'
-      />
+      <button className='btn btn-primary'>Test</button>
     </div>
   );
 };
