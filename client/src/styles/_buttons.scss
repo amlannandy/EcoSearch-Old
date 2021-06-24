@@ -1,0 +1,24 @@
+// Button
+.btn {
+  padding: 10px 20px;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  min-width: 150px;
+  margin: 10px 15px;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+// Colors
+.btn-primary {
+  background-color: $color_primary;
+}
+
+.btn-danger {
+  background-color: $color_danger;
+}
