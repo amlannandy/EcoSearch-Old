@@ -1,13 +1,7 @@
 // Font
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,400&display=swap');
 
-// Theme files
-@import './variables.scss';
-
-// UI Components
-@import './buttons.scss';
-@import './inputs.scss';
-
+// Global
 *,
 *::before,
 *::after {
@@ -16,3 +10,10 @@
   box-sizing: border-box;
   font-family: 'Lato', sans-serif;
 }
+
+// Theme files
+@import './variables.scss';
+
+// UI Components
+@import './buttons.scss';
+@import './inputs.scss';

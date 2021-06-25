@@ -1,13 +1,14 @@
 // Custom Input
+$field-padding: 12px;
+
+.input-container {
+  margin: 12.5px 0px;
+}
 
 .custom-input {
   position: relative;
   font-size: 14px;
   border-top: 20px solid transparent;
-  margin-bottom: 5px;
-  --field-padding: 12px;
-  margin: 30px 10px;
-  margin-top: 50px;
 }
 
 .custom-input input {
@@ -17,19 +18,20 @@
   -moz-appearance: none;
   appearance: none;
   background: $color_white;
-  padding: var(--field-padding);
+  padding: $field-padding;
   border-radius: 3px;
   outline: none;
   font-size: 14px;
   background: none;
   border: 2px solid $color_grey;
   transition: border-color 0.3s ease;
+  color: $color_primary;
 }
 
 .custom-input .placeholder {
   position: absolute;
-  left: var(--field-padding);
-  width: calc(100% - (var(--field-padding) * 2));
+  left: $field-padding;
+  width: calc(100% - ($field-padding * 2));
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -75,7 +77,6 @@
 
 .input-block {
   width: 100%;
-  margin: 30px 0px;
 }
 .input-block input {
   width: 100%;
