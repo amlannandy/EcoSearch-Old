@@ -15,5 +15,10 @@
 @import './variables.scss';
 
 // UI Components
-@import './buttons.scss';
-@import './inputs.scss';
+@import './buttons';
+@import './inputs';
+@import './layout';
+@import './typography';
+
+// Specific component files
+@import './home/intro_card';

@@ -1,7 +1,10 @@
 @import './variables';
 
-.heading-1 {
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 2px;
+.text-dark {
+  color: $color_dark;
+}
+
+.text-grey {
+  color: $color_dark;
+  opacity: 80%;
 }
